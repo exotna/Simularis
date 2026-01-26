@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Simularis — Guide complet Travail & Salaire 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --apple-bg: #f5f5f7;
+            --apple-card: rgba(255, 255, 255, 0.85);
+            --apple-blue: #0071e3;
+            --apple-text: #1d1d1f;
+            --apple-gray: #86868b;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, sans-serif;
+            background-color: var(--apple-bg);
+            color: var(--apple-text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header { padding: 60px 20px 20px 20px; text-align: center; width: 100%; max-width: 800px; }
+        .logo { font-size: 48px; font-weight: 600; letter-spacing: -0.02em; text-decoration: none; color: var(--apple-text); display: block; margin-bottom: 25px; }
+        .logo span.dot { color: var(--apple-blue); }
+
+        .back-btn {
+            display: inline-flex; align-items: center; background: #e5e5e7; color: var(--apple-text);
+            text-decoration: none; padding: 12px 24px; border-radius: 12px; font-weight: 600;
+            font-size: 15px; transition: all 0.3s ease; margin-bottom: 40px;
+        }
+        .back-btn:hover { background: #d1d1d6; transform: scale(0.98); }
+        .back-btn::before { content: '←'; margin-right: 8px; }
+
+        .search-container { width: 90%; max-width: 550px; margin: 0 auto 50px auto; }
+        .search-bar {
+            width: 100%; padding: 18px 25px; border-radius: 16px; border: none;
+            background: rgba(0, 0, 0, 0.06); font-size: 17px; outline: none; transition: 0.3s;
+            box-sizing: border-box;
+        }
+        .search-bar:focus { background: #fff; box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1); }
+
+        .blog-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px; width: 95%; max-width: 1200px; padding-bottom: 80px;
+        }
+
+        .article-card {
+            background: var(--apple-card); border-radius: 24px; overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-decoration: none;
+            color: inherit; display: flex; flex-direction: column;
+            border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+        .article-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .article-image { height: 160px; width: 100%; }
+
+        .article-content { padding: 22px; display: flex; flex-direction: column; flex-grow: 1; }
+        .category-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; color: var(--apple-blue); }
+        h2 { font-size: 20px; margin: 0 0 10px 0; line-height: 1.2; font-weight: 600; }
+        p { color: var(--apple-gray); font-size: 14px; margin-bottom: 15px; flex-grow: 1; line-height: 1.5; }
+        .read-more { font-weight: 600; color: var(--apple-blue); font-size: 13px; }
+
+        /* Gradients par thématique */
+        .grad-carriere { background: linear-gradient(135deg, #ff9500, #ff3b30); }
+        .grad-finance { background: linear-gradient(135deg, #28cd41, #0071e3); }
+        .grad-droit { background: linear-gradient(135deg, #5e5ce6, #af52de); }
+        .grad-admin { background: linear-gradient(135deg, #1d1d1f, #86868b); }
+
+        #no-results { display: none; margin: 40px 0; color: var(--apple-gray); font-size: 18px; }
+        footer { padding: 60px; text-align: center; color: var(--apple-gray); font-size: 13px; border-top: 1px solid rgba(0,0,0,0.05); width: 100%; box-sizing: border-box; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Simularis<span class="dot">.</span> Blog</div>
+    <a href="index.html" class="back-btn">Retour vers les simulateurs Simularis</a>
+</header>
+
+<div class="search-container">
+    <input type="text" id="searchBar" class="search-bar" placeholder="Rechercher (ex: Chômage, Tickets resto, Mutuelle...)">
+</div>
+
+<div id="no-results">Aucun article ne correspond à votre recherche.</div>
+
+<main class="blog-grid" id="blogGrid">
+
+    <a href="articles/calcul-chomage.html" class="article-card" data-keywords="chomage are pole emploi aide">
+        <div class="article-image grad-carriere"></div>
+        <div class="article-content">
+            <span class="category-tag">Carrière</span>
+            <h2>Calculer son Chômage</h2>
+            <p>Estimez vos allocations ARE et la durée de vos droits en 2026.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/conges-payes.html" class="article-card" data-keywords="conges payes vacances jours acquis">
+        <div class="article-image grad-admin"></div>
+        <div class="article-content">
+            <span class="category-tag">Droit</span>
+            <h2>Les Congés Payés</h2>
+            <p>Tout savoir sur l'acquisition, la prise et le paiement de vos jours de repos.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/demission.html" class="article-card" data-keywords="demission preavis depart lettre">
+        <div class="article-image grad-droit"></div>
+        <div class="article-content">
+            <span class="category-tag">Droit</span>
+            <h2>Démission : Mode d'emploi</h2>
+            <p>Préavis, lettre de démission et droits : comment partir sereinement.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/frais-kilometriques.html" class="article-card" data-keywords="frais kilometrique voiture transport urssaf">
+        <div class="article-image grad-finance"></div>
+        <div class="article-content">
+            <span class="category-tag">Finance</span>
+            <h2>Frais Kilométriques</h2>
+            <p>Optimisez vos remboursements avec le barème officiel 2026.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/heures-supp.html" class="article-card" data-keywords="heures supplementaires majoration defiscalisation">
+        <div class="article-image grad-finance"></div>
+        <div class="article-content">
+            <span class="category-tag">Finance</span>
+            <h2>Heures Supplémentaires</h2>
+            <p>Calcul des majorations et limites de la défiscalisation.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/mutuelle-entreprise.html" class="article-card" data-keywords="mutuelle sante entreprise panier soins">
+        <div class="article-image grad-admin"></div>
+        <div class="article-content">
+            <span class="category-tag">Guide</span>
+            <h2>La Mutuelle d'Entreprise</h2>
+            <p>Obligations, garanties et coût sur votre fiche de paie.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/negocier-salaire.html" class="article-card" data-keywords="negocier salaire entretien augmentation">
+        <div class="article-image grad-carriere"></div>
+        <div class="article-content">
+            <span class="category-tag">Carrière</span>
+            <h2>Négocier son Salaire</h2>
+            <p>Les clés pour transformer vos exigences en brut annuel.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/prelevement-source.html" class="article-card" data-keywords="prelevement source impots fisc taux">
+        <div class="article-image grad-finance"></div>
+        <div class="article-content">
+            <span class="category-tag">Fiscalité</span>
+            <h2>Prélèvement à la Source</h2>
+            <p>Comprendre son taux personnalisé et l'impact sur le net.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/prime-precarite.html" class="article-card" data-keywords="prime precarite cdd fin contrat">
+        <div class="article-image grad-droit"></div>
+        <div class="article-content">
+            <span class="category-tag">Droit</span>
+            <h2>Prime de Précarité</h2>
+            <p>Calcul et conditions d'obtention à la fin d'un CDD.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/prime-activite.html" class="article-card" data-keywords="prime activite caf aide">
+        <div class="article-image grad-finance"></div>
+        <div class="article-content">
+            <span class="category-tag">Aides</span>
+            <h2>La Prime d'Activité</h2>
+            <p>Simulez votre droit à ce complément de revenus de la CAF.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/prime-anciennete.html" class="article-card" data-keywords="prime anciennete annees travail">
+        <div class="article-image grad-admin"></div>
+        <div class="article-content">
+            <span class="category-tag">Finance</span>
+            <h2>Prime d'Ancienneté</h2>
+            <p>Comment vos années de fidélité boostent votre salaire.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/rupture-conventionnelle.html" class="article-card" data-keywords="rupture conventionnelle cdi depart">
+        <div class="article-image grad-droit"></div>
+        <div class="article-content">
+            <span class="category-tag">Droit</span>
+            <h2>Rupture Conventionnelle</h2>
+            <p>La procédure amiable pour quitter son CDI avec indemnités.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/salaire-apprenti.html" class="article-card" data-keywords="apprenti alternance salaire smic">
+        <div class="article-image grad-carriere"></div>
+        <div class="article-content">
+            <span class="category-tag">Jeunes</span>
+            <h2>Salaire de l'Apprenti</h2>
+            <p>Grilles 2026 selon l'âge et l'année de formation.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/salaire-temps-partiel.html" class="article-card" data-keywords="temps partiel 80 50 prorata">
+        <div class="article-image grad-admin"></div>
+        <div class="article-content">
+            <span class="category-tag">Guide</span>
+            <h2>Salaire à Temps Partiel</h2>
+            <p>Calculer son net au prorata de ses heures travaillées.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/smic-2026.html" class="article-card" data-keywords="smic 2026 salaire minimum net">
+        <div class="article-image grad-finance"></div>
+        <div class="article-content">
+            <span class="category-tag">Actualité</span>
+            <h2>Le SMIC 2026</h2>
+            <p>Les nouveaux montants brut et net du salaire minimum.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/solde-tout-compte.html" class="article-card" data-keywords="solde tout compte fin contrat cheque depart">
+        <div class="article-image grad-droit"></div>
+        <div class="article-content">
+            <span class="category-tag">Droit</span>
+            <h2>Solde de tout Compte</h2>
+            <p>Ce que l'employeur doit vous verser à votre départ.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/teletravail-indemnites.html" class="article-card" data-keywords="teletravail indemnite frais domicile">
+        <div class="article-image grad-admin"></div>
+        <div class="article-content">
+            <span class="category-tag">Guide</span>
+            <h2>Indemnités Télétravail</h2>
+            <p>Prise en charge des frais de bureau à domicile par l'employeur.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+    <a href="articles/tickets-restaurant.html" class="article-card" data-keywords="tickets restaurant carte dejeuner repas">
+        <div class="article-image grad-finance"></div>
+        <div class="article-content">
+            <span class="category-tag">Avantages</span>
+            <h2>Tickets Restaurant</h2>
+            <p>Règles de part patronale et plafonds d'utilisation 2026.</p>
+            <span class="read-more">Lire l'article →</span>
+        </div>
+    </a>
+
+</main>
+
+<footer>
+    <p>© 2026 Simularis — Votre partenaire carrière et paie.</p>
+</footer>
+
+<script>
+    const searchBar = document.getElementById('searchBar');
+    const articles = document.querySelectorAll('.article-card');
+    const noResults = document.getElementById('no-results');
+
+    searchBar.addEventListener('input', (e) => {
+        const searchValue = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        let hasMatches = false;
+
+        articles.forEach(article => {
+            const keywords = article.getAttribute('data-keywords').toLowerCase();
+            const title = article.querySelector('h2').innerText.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            
+            if (keywords.includes(searchValue) || title.includes(searchValue)) {
+                article.style.display = "flex";
+                hasMatches = true;
+            } else {
+                article.style.display = "none";
+            }
+        });
+
+        noResults.style.display = hasMatches ? "none" : "block";
+    });
+</script>
+
+</body>
+</html>
