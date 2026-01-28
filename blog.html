@@ -56,20 +56,28 @@
             border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 10px 30px rgba(0,0,0,0.02);
         }
         .article-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-        .article-image { height: 160px; width: 100%; }
+       /* 1. Style de base de l'image (Look Apple) */
+        .article-image {
+            height: 180px;
+            width: 100%;
+            background-size: cover;       /* L'image remplit tout le cadre sans se déformer */
+            background-position: center;  /* L'image est centrée verticalement et horizontalement */
+            background-repeat: no-repeat;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: transform 0.5s ease; /* Pour un petit effet de zoom au survol */
+        }
 
-        .article-content { padding: 22px; display: flex; flex-direction: column; flex-grow: 1; }
-        .category-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; color: var(--apple-blue); }
-        h2 { font-size: 20px; margin: 0 0 10px 0; line-height: 1.2; font-weight: 600; }
-        p { color: var(--apple-gray); font-size: 14px; margin-bottom: 15px; flex-grow: 1; line-height: 1.5; }
-        .read-more { font-weight: 600; color: var(--apple-blue); font-size: 13px; }
+        /* 2. Effet au survol de la carte (Optionnel mais pro) */
+        .article-card:hover .article-image {
+            transform: scale(1.05);
+        }
 
-        /* Gradients par thématique */
-        .grad-carriere { background: linear-gradient(135deg, #ff9500, #ff3b30); }
-        .grad-finance { background: linear-gradient(135deg, #28cd41, #0071e3); }
-        .grad-droit { background: linear-gradient(135deg, #5e5ce6, #af52de); }
-        .grad-admin { background: linear-gradient(135deg, #1d1d1f, #86868b); }
-
+        /* 3. Sécurité : Couleurs de secours si l'image ne charge pas */
+        /* On garde les classes pour ne pas casser le HTML actuel */
+        .grad-carriere { background-color: #ff9500; }
+        .grad-finance { background-color: #28cd41; }
+        .grad-droit { background-color: #5e5ce6; }
+        .grad-admin { background-color: #1d1d1f; }
         #no-results { display: none; margin: 40px 0; color: var(--apple-gray); font-size: 18px; }
         footer { padding: 60px; text-align: center; color: var(--apple-gray); font-size: 13px; border-top: 1px solid rgba(0,0,0,0.05); width: 100%; box-sizing: border-box; }
     </style>
@@ -90,7 +98,8 @@
 <main class="blog-grid" id="blogGrid">
 
     <a href="articles/calcul-chomage.html" class="article-card" data-keywords="chomage are pole emploi aide">
-        <div class="article-image grad-carriere"></div>
+        <div class="article-image grad-carriere"
+            style="background-image: url('img/calcul-chomage.jpg');"></div>
         <div class="article-content">
             <span class="category-tag">Carrière</span>
             <h2>Calculer son Chômage</h2>
@@ -100,7 +109,8 @@
     </a>
 
     <a href="articles/conges-payes.html" class="article-card" data-keywords="conges payes vacances jours acquis">
-        <div class="article-image grad-admin"></div>
+        <div class="article-image grad-admin"
+            style="background-image: url('img/congés.jpg');"></div>
         <div class="article-content">
             <span class="category-tag">Droit</span>
             <h2>Les Congés Payés</h2>
