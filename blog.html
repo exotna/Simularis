@@ -58,12 +58,14 @@
         .article-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
        /* 1. Style de base de l'image (Look Apple) */
        /* On ne touche à rien d'autre, juste à l'apparence de l'image */
-.article-image {
-    height: 180px;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+.article-image { 
+            height: 160px; 
+            width: 100%;
+            /* Ajoute ces lignes pour les photos */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
     /* On garde tes coins arrondis s'ils ont sauté */
     border-top-left-radius: 18px;
     border-top-right-radius: 18px;
@@ -94,7 +96,7 @@
 <main class="blog-grid" id="blogGrid">
 
     <a href="articles/calcul-chomage.html" class="article-card" data-keywords="chomage are pole emploi aide">
-        <div class="article-image grad-carriere"style="background-image: url('img/calcul-chomage.jpg');"></div>
+        <div class="article-image grad-carriere" style="background-image: url('img/chomage.jpg');"></div>
         <div class="article-content">
             <span class="category-tag">Carrière</span>
             <h2>Calculer son Chômage</h2>
