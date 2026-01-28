@@ -57,27 +57,23 @@
         }
         .article-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
        /* 1. Style de base de l'image (Look Apple) */
-        .article-image {
-            height: 180px;
-            width: 100%;
-            background-size: cover;       /* L'image remplit tout le cadre sans se déformer */
-            background-position: center;  /* L'image est centrée verticalement et horizontalement */
-            background-repeat: no-repeat;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            transition: transform 0.5s ease; /* Pour un petit effet de zoom au survol */
-        }
+       /* On ne touche à rien d'autre, juste à l'apparence de l'image */
+.article-image {
+    height: 180px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* On garde tes coins arrondis s'ils ont sauté */
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+}
 
-        /* 2. Effet au survol de la carte (Optionnel mais pro) */
-        .article-card:hover .article-image {
-            transform: scale(1.05);
-        }
-
-        /* 3. Sécurité : Couleurs de secours si l'image ne charge pas */
-        /* On garde les classes pour ne pas casser le HTML actuel */
-        .grad-carriere { background-color: #ff9500; }
-        .grad-finance { background-color: #28cd41; }
-        .grad-droit { background-color: #5e5ce6; }
-        .grad-admin { background-color: #1d1d1f; }
+/* On remet tes couleurs de secours sans écraser le reste */
+.grad-carriere { background: #ff9500; }
+.grad-finance { background: #28cd41; }
+.grad-droit { background: #5e5ce6; }
+.grad-admin { background: #1d1d1f; }
         #no-results { display: none; margin: 40px 0; color: var(--apple-gray); font-size: 18px; }
         footer { padding: 60px; text-align: center; color: var(--apple-gray); font-size: 13px; border-top: 1px solid rgba(0,0,0,0.05); width: 100%; box-sizing: border-box; }
     </style>
