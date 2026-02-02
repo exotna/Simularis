@@ -729,57 +729,64 @@ footer { padding: 40px; text-align: center; color: var(--apple-gray); font-size:
         calculerBase();
     }
 
- function calculerBase() {
-    // Récupération des valeurs
-    const hBrutUnitaire = parseFloat(document.getElementById('hBrut').value) || 0;
-    const hSemaine = parseFloat(document.getElementById('hSemaine').value) || 35;
-    const moisAn = parseFloat(document.getElementById('moisAn').value) || 12;
-    const statut = document.getElementById('statut').value;
-    const tSource = (parseFloat(document.getElementById('tSource').value) || 0) / 100;
+function calculerBase() {
+    try {
+        // 1. Récupération des valeurs
+        const hBrutUnitaire = parseFloat(document.getElementById('hBrut').value) || 0;
+        const hSemaine = parseFloat(document.getElementById('hSemaine').value) || 35;
+        const moisAn = parseFloat(document.getElementById('moisAn').value) || 12;
+        const statut = document.getElementById('statut').value;
+        const tSource = (parseFloat(document.getElementById('tSource').value) || 0) / 100;
 
-    // Calcul du Brut Mensuel
-    const mBrut = (hBrutUnitaire * hSemaine * 52) / 12;
-    const aBrut = mBrut * moisAn;
+        // 2. Calcul du Brut
+        const mBrut = (hBrutUnitaire * hSemaine * 52) / 12;
+        const aBrut = mBrut * moisAn;
 
-    // Taux de cotisations selon statut
-    let stat = 0.22; // Non-cadre par défaut
-    if (statut === 'cadre') stat = 0.25;
-    if (statut === 'public') stat = 0.15;
-    if (statut === 'indep') stat = 0.45;
+        // 3. Taux de cotisations
+        let stat = 0.22; 
+        if (statut === 'cadre') stat = 0.25;
+        if (statut === 'public') stat = 0.15;
+        if (statut === 'indep') stat = 0.45;
 
-    // Calculs des Nets
-    const mNetSocial = mBrut * (1 - stat);
-    const mImpot = mNetSocial * tSource;
-    const mNetFinal = mNetSocial - mImpot;
-    const aNetSocial = mNetSocial * moisAn;
+        // 4. Calculs des Nets
+        const mNetSocial = mBrut * (1 - stat);
+        const mImpot = mNetSocial * tSource;
+        const mNetFinal = mNetSocial - mImpot;
+        const aNetSocial = mNetSocial * moisAn;
 
-    // --- NOUVEAU : CALCUL DU TAUX HORAIRE NET ---
-    const hNetFinal = hBrutUnitaire * (1 - stat);
-    // --------------------------------------------
+        // CALCUL DU TAUX HORAIRE NET
+        const hNetFinal = hBrutUnitaire * (1 - stat);
 
-    // Coût Employeur (estimé à +42% du brut)
-    const coutEmp = mBrut * 1.42;
+        // Coût Employeur
+        const coutEmp = mBrut * 1.42;
 
-    // Affichage des résultats
-    document.getElementById('resBrut').innerText = formatEuro(aBrut, 0);
-    document.getElementById('resNet').innerText = formatEuro(aNetSocial, 0);
-    document.getElementById('resApresImpot').innerText = formatEuro(mNetFinal * moisAn, 0);
+        // 5. Affichage des résultats principaux
+        document.getElementById('resBrut').innerText = formatEuro(aBrut, 0);
+        document.getElementById('resNet').innerText = formatEuro(aNetSocial, 0);
+        document.getElementById('resApresImpot').innerText = formatEuro(mNetFinal * moisAn, 0);
 
-    // Détails Mensuels
-    document.getElementById('mBrutDisplay').innerText = formatEuro(mBrut, 0);
-    document.getElementById('mNetAvantImpot').innerText = formatEuro(mNetSocial, 0);
-    document.getElementById('mImpotDisplay').innerText = formatEuro(mImpot, 0);
-    document.getElementById('mNetApresImpot').innerText = formatEuro(mNetFinal, 0);
-    document.getElementById('mCoutEmp').innerText = formatEuro(coutEmp, 0);
+        // 6. Détails Mensuels
+        document.getElementById('mBrutDisplay').innerText = formatEuro(mBrut, 0);
+        document.getElementById('mNetAvantImpot').innerText = formatEuro(mNetSocial, 0);
+        document.getElementById('mImpotDisplay').innerText = formatEuro(mImpot, 0);
+        document.getElementById('mNetApresImpot').innerText = formatEuro(mNetFinal, 0);
+        document.getElementById('mCoutEmp').innerText = formatEuro(coutEmp, 0);
 
-    // --- AFFICHAGE DU TAUX HORAIRE NET ---
-    if(document.getElementById('hNetDisplay')) {
-        document.getElementById('hNetDisplay').innerText = formatEuro(hNetFinal, 2);
+        // 7. Affichage spécifique du Taux Horaire Net (avec sécurité)
+        const hNetDisplayElement = document.getElementById('hNetDisplay');
+        if (hNetDisplayElement) {
+            hNetDisplayElement.innerText = formatEuro(hNetFinal, 2);
+        }
+
+        // 8. Mise à jour graphique et affichage du bloc
+        if (typeof updateChart === "function") {
+            updateChart(mNetFinal, mImpot, mBrut * stat);
+        }
+        document.getElementById('resultat-base').style.display = 'block';
+
+    } catch (error) {
+        console.error("Erreur dans le calcul :", error);
     }
-
-    // Mise à jour graphique
-    updateChart(mNetFinal, mImpot, mBrut * stat);
-    document.getElementById('resultat-base').style.display = 'block';
 }
         calculerSupp();
     }
