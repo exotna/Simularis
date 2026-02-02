@@ -329,8 +329,13 @@ footer { padding: 40px; text-align: center; color: var(--apple-gray); font-size:
                 <div class="res-val" id="netLisseDisplay">0 €</div>
                 <div style="font-size: 11px; opacity: 0.7; margin-top:5px;">Inclut Primes & 13e/14e mois</div>
             </div>
-            <div class="res-item" style="border: 1px solid var(--apple-orange)">
-                <span class="res-label" style="color: var(--apple-orange)">Coût Employeur Mensuel</span>
+           <div class="res-item">
+    <span class="res-label">Détails Mensuels</span>
+    <div style="font-size: 13px;">Brut : <span id="mBrutDisplay">0 €</span></div>
+    <div style="font-size: 13px; margin-top:4px; color: var(--apple-green); font-weight: 600;">Net Horaire : <span id="hNetDisplay">0 €</span></div>
+    
+    <div style="font-size: 13px; margin-top:4px;">Net avant impôt : <span id="mNetAvantImpot">0 €</span></div>
+</div>
                 <div class="res-val" id="coutEmployeur" style="color: var(--apple-orange)">0 €</div>
             </div>
             <div class="res-item">
@@ -739,7 +744,14 @@ footer { padding: 40px; text-align: center; color: var(--apple-gray); font-size:
         const mImpot = mNetSocial * tImpot;
         const mNetFinal = mNetSocial - mImpot;
         const yNet = ((mBrut * (12 + extraMois) + primes) * (1 - stat) * (1 - tImpot));
-        
+        // ... (lignes existantes dans la fonction calculerBase)
+const mNetFinal = mNetSocial - mImpot;
+
+// 1. CALCULE LE TAUX HORAIRE NET (Brut horaire - cotisations)
+const hNetFinal = hBrutUnitaire * (1 - stat);
+
+// 2. AFFICHE LE RÉSULTAT (Ajoute cette ligne avec les autres document.getElementById)
+document.getElementById('hNetDisplay').innerText = formatEuro(hNetFinal, 2);
         document.getElementById('finalNetMensuel').innerText = formatEuro(mNetFinal);
         document.getElementById('montantImpot').innerText = formatEuro(mImpot);
         document.getElementById('mNetAvantImpot').innerText = formatEuro(mNetSocial);
