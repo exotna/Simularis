@@ -329,12 +329,15 @@ footer { padding: 40px; text-align: center; color: var(--apple-gray); font-size:
                 <div class="res-val" id="netLisseDisplay">0 €</div>
                 <div style="font-size: 11px; opacity: 0.7; margin-top:5px;">Inclut Primes & 13e/14e mois</div>
             </div>
-           <div class="res-item">
+          <div class="res-item">
     <span class="res-label">Détails Mensuels</span>
     <div style="font-size: 13px;">Brut : <span id="mBrutDisplay">0 €</span></div>
-    <div style="font-size: 13px; margin-top:4px; color: var(--apple-green); font-weight: 600;">Net Horaire : <span id="hNetDisplay">0 €</span></div>
+    <div style="font-size: 13px; margin-top:4px; color: #28cd41; font-weight: 600;">Net Horaire : <span id="hNetDisplay">0 €</span></div>
     
     <div style="font-size: 13px; margin-top:4px;">Net avant impôt : <span id="mNetAvantImpot">0 €</span></div>
+    <div style="font-size: 13px;">Impôt : <span id="mImpotDisplay">0 €</span></div>
+    <div style="font-size: 13px; font-weight: 600;">Net après impôt : <span id="mNetApresImpot">0 €</span></div>
+    <div style="font-size: 13px; margin-top:8px; color: var(--apple-gray);">Coût Employeur : <span id="mCoutEmp">0 €</span></div>
 </div>
                 <div class="res-val" id="coutEmployeur" style="color: var(--apple-orange)">0 €</div>
             </div>
@@ -730,59 +733,56 @@ footer { padding: 40px; text-align: center; color: var(--apple-gray); font-size:
     }
 
 function calculerBase() {
-    try {
-        // 1. Récupération des valeurs
-        const hBrutUnitaire = parseFloat(document.getElementById('hBrut').value) || 0;
-        const hSemaine = parseFloat(document.getElementById('hSemaine').value) || 35;
-        const moisAn = parseFloat(document.getElementById('moisAn').value) || 12;
-        const statut = document.getElementById('statut').value;
-        const tSource = (parseFloat(document.getElementById('tSource').value) || 0) / 100;
+    // 1. Récupération des valeurs
+    const hBrutUnitaire = parseFloat(document.getElementById('hBrut').value) || 0;
+    const hSemaine = parseFloat(document.getElementById('hSemaine').value) || 35;
+    const moisAn = parseFloat(document.getElementById('moisAn').value) || 12;
+    const statut = document.getElementById('statut').value;
+    const tSource = (parseFloat(document.getElementById('tSource').value) || 0) / 100;
 
-        // 2. Calcul du Brut
-        const mBrut = (hBrutUnitaire * hSemaine * 52) / 12;
-        const aBrut = mBrut * moisAn;
+    // 2. Calcul du Brut Mensuel
+    const mBrut = (hBrutUnitaire * hSemaine * 52) / 12;
+    const aBrut = mBrut * moisAn;
 
-        // 3. Taux de cotisations
-        let stat = 0.22; 
-        if (statut === 'cadre') stat = 0.25;
-        if (statut === 'public') stat = 0.15;
-        if (statut === 'indep') stat = 0.45;
+    // 3. Taux de cotisations selon statut
+    let stat = 0.22; 
+    if (statut === 'cadre') stat = 0.25;
+    if (statut === 'public') stat = 0.15;
+    if (statut === 'indep') stat = 0.45;
 
-        // 4. Calculs des Nets
-        const mNetSocial = mBrut * (1 - stat);
-        const mImpot = mNetSocial * tSource;
-        const mNetFinal = mNetSocial - mImpot;
-        const aNetSocial = mNetSocial * moisAn;
+    // 4. Calculs des Nets
+    const mNetSocial = mBrut * (1 - stat);
+    const mImpot = mNetSocial * tSource;
+    const mNetFinal = mNetSocial - mImpot;
+    const aNetSocial = mNetSocial * moisAn;
 
-        // CALCUL DU TAUX HORAIRE NET
-        const hNetFinal = hBrutUnitaire * (1 - stat);
+    // Calcul du taux horaire net
+    const hNetFinal = hBrutUnitaire * (1 - stat);
 
-        // Coût Employeur
-        const coutEmp = mBrut * 1.42;
+    // Coût Employeur (estimé)
+    const coutEmp = mBrut * 1.42;
 
-        // 5. Affichage des résultats principaux
-        document.getElementById('resBrut').innerText = formatEuro(aBrut, 0);
-        document.getElementById('resNet').innerText = formatEuro(aNetSocial, 0);
-        document.getElementById('resApresImpot').innerText = formatEuro(mNetFinal * moisAn, 0);
+    // 5. Affichage des résultats principaux
+    document.getElementById('resBrut').innerText = formatEuro(aBrut, 0);
+    document.getElementById('resNet').innerText = formatEuro(aNetSocial, 0);
+    document.getElementById('resApresImpot').innerText = formatEuro(mNetFinal * moisAn, 0);
 
-        // 6. Détails Mensuels
-        document.getElementById('mBrutDisplay').innerText = formatEuro(mBrut, 0);
-        document.getElementById('mNetAvantImpot').innerText = formatEuro(mNetSocial, 0);
-        document.getElementById('mImpotDisplay').innerText = formatEuro(mImpot, 0);
-        document.getElementById('mNetApresImpot').innerText = formatEuro(mNetFinal, 0);
-        document.getElementById('mCoutEmp').innerText = formatEuro(coutEmp, 0);
+    // 6. Détails Mensuels
+    document.getElementById('mBrutDisplay').innerText = formatEuro(mBrut, 0);
+    document.getElementById('mNetAvantImpot').innerText = formatEuro(mNetSocial, 0);
+    document.getElementById('mImpotDisplay').innerText = formatEuro(mImpot, 0);
+    document.getElementById('mNetApresImpot').innerText = formatEuro(mNetFinal, 0);
+    document.getElementById('mCoutEmp').innerText = formatEuro(coutEmp, 0);
 
-        // 7. Affichage spécifique du Taux Horaire Net (avec sécurité)
-        const hNetDisplayElement = document.getElementById('hNetDisplay');
-        if (hNetDisplayElement) {
-            hNetDisplayElement.innerText = formatEuro(hNetFinal, 2);
-        }
+    // 7. Affichage du Net Horaire (SÉCURISÉ)
+    const hNetElt = document.getElementById('hNetDisplay');
+    if (hNetElt) {
+        hNetElt.innerText = formatEuro(hNetFinal, 2);
+    }
 
-        // 8. Mise à jour graphique et affichage du bloc
-        if (typeof updateChart === "function") {
-            updateChart(mNetFinal, mImpot, mBrut * stat);
-        }
-        document.getElementById('resultat-base').style.display = 'block';
+    // 8. Affichage du bloc de résultat
+    document.getElementById('resultat-base').style.display = 'block';
+}
 
     } catch (error) {
         console.error("Erreur dans le calcul :", error);
