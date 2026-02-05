@@ -5,32 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Simularis — Salaire Brut en Net 2026 : Simulateur Précis & Gratuit</title>
-    <meta name="description" content="Calculez votre salaire net en 2026 selon votre statut (cadre, non-cadre, indépendant). Inclus : prélèvement à la source, heures supplémentaires, 13e mois et primes.">
-    <meta name="keywords" content="salaire brut en net, simulateur salaire 2026, calcul salaire net, heures supplémentaires, coût employeur, simularis">
+    <meta name="description" content="Calculez votre salaire net en 2026. Simulateur gratuit pour Cadre, Non-Cadre, Fonctionnaire et Indépendant. Inclus : Prélèvement à la source et Heures Supp.">
     
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "Simularis",
-      "operatingSystem": "All",
       "applicationCategory": "FinanceApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "EUR"
-      }
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
     }
-
-// --- FONCTIONS POUR OUVRIR LES MODALES ---
-function openModal(id) { 
-    document.getElementById(id).style.display = 'flex'; 
-}
-
-function closeModal(e) { 
-    if(e.target.className === 'modal') e.target.style.display = 'none'; 
-}
-
     </script>
 
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600&display=swap" rel="stylesheet">
@@ -43,301 +27,208 @@ function closeModal(e) {
             --apple-blue: #0071e3;
             --apple-text: #1d1d1f;
             --apple-gray: #86868b;
-            --apple-red: #ff3b30;
             --apple-green: #28cd41;
+            --apple-orange: #f56300;
             --apple-purple: #af52de;
-            --apple-orange: #ff9500;
             --input-bg: #f2f2f3;
         }
 
-        [data-theme="dark"] {
-            --apple-bg: #000000;
-            --apple-card: rgba(28, 28, 30, 0.85);
-            --apple-text: #ffffff;
-            --apple-gray: #98989d;
-            --input-bg: #2c2c2e;
-        }
-
-        body { 
-            font-family: 'SF Pro Display', -apple-system, sans-serif; 
-            background: var(--apple-bg); color: var(--apple-text); margin: 0;
-            display: flex; flex-direction: column; align-items: center;
-            transition: background 0.3s, color 0.3s;
-        }
-        header { padding: 40px 20px; text-align: center; }
-        h1 { font-size: 48px; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
-        .logo-dot { color: var(--apple-blue); }
+        body { font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--apple-bg); color: var(--apple-text); margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
         
+        header { padding: 40px 20px 20px; text-align: center; width: 100%; max-width: 800px; }
+        .logo { font-size: 42px; font-weight: 600; letter-spacing: -1px; margin-bottom: 5px; }
+        .logo span { color: var(--apple-blue); }
+        .subtitle { color: var(--apple-gray); font-size: 17px; font-weight: 400; margin-bottom: 20px; }
 
-/* --- NAVIGATION --- */
+        /* Navigation */
+        .nav-container { margin-bottom: 25px; overflow-x: auto; width: 100%; display: flex; justify-content: center; }
+        .tabs { display: flex; gap: 8px; background: rgba(0,0,0,0.05); padding: 5px; border-radius: 16px; flex-wrap: wrap; justify-content: center; }
+        .tab-btn { border: none; padding: 10px 18px; border-radius: 12px; cursor: pointer; font-weight: 600; color: var(--apple-gray); background: transparent; transition: all 0.3s ease; font-size: 13px; }
+        .tab-btn.active { background: white; color: var(--apple-blue); box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: scale(1.02); }
+        .tab-btn:hover:not(.active) { background: rgba(255,255,255,0.5); }
 
-.nav-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 25px;
-    padding: 0 10px; /* Petit espace sur les côtés du téléphone */
-    box-sizing: border-box;
-    overflow: hidden; /* On désactive le scroll horizontal */
-}
-    -ms-overflow-style: none; /* Cache sur Edge */
-    -webkit-overflow-scrolling: touch;
-}
-
-/* Centre le menu seulement si l'écran est large (PC) */
-@media (min-width: 600px) {
-    .nav-container { justify-content: center; }
-}
-
-.nav-container::-webkit-scrollbar { display: none; } /* Cache la barre sur Chrome/Safari */
-
-.tabs {
-    display: grid;
-    /* Crée deux colonnes de taille égale */
-    grid-template-columns: 1fr 1fr; 
-    background: rgba(0, 0, 0, 0.05);
-    padding: 4px;
-    border-radius: 16px;
-    gap: 6px; /* Espace entre les boutons */
-    width: 100%; /* Prend toute la largeur disponible */
-    box-sizing: border-box;
-}
-
-.tab-btn {
-    border: none;
-    padding: 12px 10px; /* Plus de hauteur pour faciliter le clic au pouce */
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 14px;
-    background: transparent;
-    color: var(--apple-gray);
-    transition: all 0.2s ease;
-    text-align: center;
-}
-
-/* On garde le centrage pour les grands écrans (PC) */
-@media (min-width: 600px) {
-    .tabs {
-        grid-template-columns: repeat(4, auto); /* Repasse sur une ligne sur PC */
-        width: auto;
-    }
-}
-
-        .tab-btn.active { background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); color: var(--apple-blue); }
-        [data-theme="dark"] .tab-btn.active { background: #3a3a3c; }
-
-        .main-layout { 
-            display: grid; grid-template-columns: 350px 1fr; 
-            gap: 30px; width: 95%; max-width: 1200px; margin-bottom: 50px; 
+        /* Blog Button Style */
+        .blog-btn {
+            display: inline-flex; align-items: center; gap: 10px; padding: 10px 25px;
+            text-decoration: none; color: var(--apple-blue); font-weight: 600; font-size: 14px;
+            border-radius: 50px; border: 1px solid rgba(0, 113, 227, 0.2);
+            background: var(--apple-card); transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
+        .blog-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,113,227,0.15); }
+        .badge-new { background: var(--apple-blue); color: white; font-size: 9px; padding: 2px 8px; border-radius: 10px; margin-left: 5px; text-transform: uppercase; }
+
+        /* Layout */
+        .main-layout { display: grid; grid-template-columns: 350px 1fr; gap: 30px; width: 95%; max-width: 1100px; margin-bottom: 40px; }
         .page { display: none; width: 100%; }
         .page.active { display: grid; }
 
-        .page-header-title { grid-column: 1 / -1; font-size: 24px; font-weight: 600; margin-bottom: 10px; color: var(--apple-text); }
-
-        @media (max-width: 1000px) { .main-layout, .page.active { grid-template-columns: 1fr; } }
-
-        .glass-card { 
-            background: var(--apple-card); backdrop-filter: blur(25px); 
-            border-radius: 24px; padding: 25px; border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        }
-
-        .input-group { margin-bottom: 12px; }
-        .divider { height: 1px; background: #e5e5e7; margin: 15px 0; opacity: 0.2; }
-        label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--apple-gray); margin-bottom: 4px; }
+        .glass-card { background: var(--apple-card); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-radius: 24px; padding: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.04); border: 1px solid rgba(255,255,255,0.6); height: fit-content; }
         
-        input, select { 
-            width: 100%; border: none; background: var(--input-bg); padding: 12px; border-radius: 10px;
-            font-size: 15px; font-family: inherit; box-sizing: border-box; color: var(--apple-text); outline: none;
-        }
+        .input-group { margin-bottom: 18px; }
+        label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--apple-gray); margin-bottom: 6px; display: block; letter-spacing: 0.5px; }
+        input, select { width: 100%; border: none; background: var(--input-bg); padding: 14px; border-radius: 14px; font-size: 15px; color: var(--apple-text); outline: none; box-sizing: border-box; transition: 0.2s; -webkit-appearance: none; font-weight: 500; }
+        input:focus, select:focus { background: white; box-shadow: 0 0 0 3px rgba(0,113,227,0.15); }
+        
+        .sync-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-        input[type="range"] { -webkit-appearance: none; width: 100%; height: 6px; background: #ddd; border-radius: 5px; outline: none; margin: 15px 0; }
-        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; background: var(--apple-blue); border-radius: 50%; cursor: pointer; }
+        .results-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; align-content: start; }
+        .highlight-card { grid-column: 1 / -1; background: linear-gradient(135deg, #0071e3, #00c6fb); color: white; padding: 35px; border-radius: 26px; text-align: center; box-shadow: 0 15px 35px rgba(0,113,227,0.25); position: relative; overflow: hidden; }
+        
+        .res-item { background: white; padding: 22px; border-radius: 22px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.02); }
+        .res-label { font-size: 11px; color: var(--apple-gray); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .res-val { font-size: 26px; font-weight: 600; display: block; margin-top: 8px; }
 
-        .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-content: start; }
-        .res-item { background: var(--apple-card); padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); position: relative; transition: 0.3s; }
-        .res-label { font-size: 11px; color: var(--apple-gray); font-weight: 600; text-transform: uppercase; margin-bottom: 8px; display: block; }
-        .res-val { font-size: 22px; font-weight: 600; }
+        .divider { height: 1px; background: rgba(0,0,0,0.06); margin: 20px 0; }
+        .btn-action { margin-top: 15px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; cursor: pointer; transition: 0.2s; }
+        .btn-action:hover { background: rgba(255,255,255,0.3); }
 
-        .highlight-card { grid-column: 1 / -1; background: var(--apple-blue); color: white; padding: 30px; border-radius: 24px; text-align: center; }
-        .lisse-card { border: 1.5px solid var(--apple-purple); }
-
-        .winner-tag { position: absolute; top: -12px; right: 20px; background: var(--apple-green); color: white; padding: 4px 12px; border-radius: 10px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
-        .winner-border { border: 2px solid var(--apple-green) !important; transform: scale(1.02); }
-        .comp-detail { font-size: 13px; margin-top: 10px; display: flex; justify-content: space-between; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 8px; }
-
-        .btn-action { margin-top: 15px; background: rgba(255,255,255,0.2); border: 1px solid white; color: white; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 13px; }
-        .btn-action:hover { background: white; color: var(--apple-blue); }
-
-        /* SEO & FAQ STYLES */
-        .seo-container { width: 95%; max-width: 1200px; margin: 60px 0 40px 0; display: flex; flex-direction: column; gap: 60px; text-align: left; }
-        .seo-section-title { font-size: 32px; font-weight: 600; margin-bottom: 30px; text-align: center; }
-        .statuts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-        .statut-card { background: var(--apple-card); padding: 25px; border-radius: 24px; border: 1px solid rgba(0,0,0,0.05); transition: transform 0.3s ease; }
-        .statut-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .statut-icon { width: 40px; height: 40px; background: var(--apple-blue); color: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 15px; }
-        .statut-card h3 { font-size: 18px; margin: 0 0 10px 0; color: var(--apple-text); }
-        .statut-card p { font-size: 14px; color: var(--apple-gray); margin: 0; line-height: 1.5; }
+        /* SEO & FAQ Styles */
+        .info-section { width: 95%; max-width: 1100px; margin: 40px 0; }
+        .section-title { font-size: 28px; font-weight: 600; text-align: center; margin-bottom: 30px; }
+        
+        .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 50px; }
+        .status-card { background: white; padding: 25px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.05); transition: 0.3s; }
+        .status-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .status-icon { width: 40px; height: 40px; border-radius: 12px; background: var(--apple-blue); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-bottom: 15px; }
+        
         .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media (max-width: 800px) { .faq-grid { grid-template-columns: 1fr; } }
-        .faq-item { background: var(--apple-card); padding: 25px; border-radius: 24px; border: 1px solid rgba(0,0,0,0.03); }
-        .faq-item h4 { font-size: 17px; margin: 0 0 12px 0; display: flex; align-items: center; gap: 10px; color: var(--apple-blue); }
-        .faq-item p { margin: 0; font-size: 14px; color: var(--apple-gray); line-height: 1.6; }
+        .faq-item { background: white; padding: 25px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.05); }
+        .faq-question { font-weight: 600; color: var(--apple-blue); margin-bottom: 10px; display: block; }
+        .faq-answer { font-size: 14px; color: var(--apple-gray); line-height: 1.5; margin: 0; }
 
-        /* FOOTER & MODALE */
-        footer { margin-top: 50px; padding: 40px 20px; text-align: center; font-size: 13px; color: var(--apple-gray); border-top: 1px solid rgba(0,0,0,0.05); width: 100%; }
-        .footer-link { color: var(--apple-blue); text-decoration: none; margin: 0 10px; cursor: pointer; }
-        .modal { display:none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); align-items: center; justify-content: center; }
-        .modal-content { max-width: 700px; width: 90%; max-height: 85vh; overflow-y: auto; }
+        /* Footer & Legal */
+        footer { margin-top: 60px; padding: 40px 20px; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); width: 100%; box-sizing: border-box; }
+        .footer-links { margin-top: 10px; }
+        .footer-links a { color: var(--apple-gray); text-decoration: none; font-size: 13px; margin: 0 10px; cursor: pointer; transition: 0.2s; }
+        .footer-links a:hover { color: var(--apple-blue); }
 
-        .theme-toggle { position: fixed; bottom: 20px; right: 20px; background: var(--apple-blue); color: white; border: none; width: 50px; height: 50px; border-radius: 25px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-size: 20px; z-index: 999; }
+        /* Modals */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 40px; border-radius: 24px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 24px; cursor: pointer; color: var(--apple-gray); border: none; background: none; }
+        .legal-text { font-size: 14px; line-height: 1.6; color: var(--apple-text); }
+        .legal-text h3 { margin-top: 20px; color: var(--apple-blue); }
 
-footer { padding: 40px; text-align: center; color: var(--apple-gray); font-size: 13px; width: 100%; }
-.footer-link { color: var(--apple-blue); text-decoration: none; cursor: pointer; margin: 0 10px; font-weight: 600; }
-.modal { display:none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); align-items: center; justify-content: center; }
-.modal-content { max-width: 700px; width: 90%; max-height: 80vh; overflow-y: auto; padding: 40px; background: var(--apple-card); border-radius: 24px; position: relative; line-height: 1.6; color: var(--apple-text); text-align: left; }
-
+        @media (max-width: 900px) { 
+            .main-layout { grid-template-columns: 1fr; width: 92%; } 
+            .results-grid, .faq-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
-<body data-theme="light">
+<body>
 
 <header>
-    <h1>Simularis<span class="logo-dot">.</span></h1>
-   <div class="nav-container">
+    <div class="logo">Simularis<span>.</span></div>
+    <div class="subtitle">Simulateur de revenus haute précision 2026</div>
 
-<nav class="tabs" style="grid-template-columns: repeat(3, 1fr); display: grid; gap: 6px;">
-    <button class="tab-btn active" onclick="switchTab('salaire', this)">Salaire</button>
-    <button class="tab-btn" onclick="switchTab('heures', this)">Heures Supp.</button>
-    <button class="tab-btn" onclick="switchTab('comparatif', this)">Comparatif</button>
-    <button class="tab-btn" onclick="switchTab('indemnite', this)">Indemnités</button>
-    <button class="tab-btn" onclick="switchTab('km', this)">Frais KM</button>
-    <button class="tab-btn" onclick="switchTab('prime', this)">Prime Act.</button>
-</nav>
+    <div style="margin-bottom: 25px;">
+        <a href="blog.html" class="blog-btn">
+            <span style="font-size: 18px;">📖</span>
+            <span>Accéder au Blog</span>
+            <span class="badge-new">Nouveau</span>
+        </a>
+    </div>
 
-</div>
-
-<div style="width: 100%; display: flex; justify-content: center; margin-top: 15px;">
-    <a href="blog.html" class="glass-card" style="
-        display: inline-flex; 
-        align-items: center; 
-        gap: 10px; 
-        padding: 10px 25px; 
-        text-decoration: none; 
-        color: var(--apple-blue); 
-        font-weight: 600; 
-        font-size: 14px;
-        border-radius: 50px; /* Effet pillule */
-        border: 1px solid rgba(0, 113, 227, 0.2);
-        transition: 0.3s;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    " onmouseover="this.style.background='rgba(0,113,227,0.05)'" onmouseout="this.style.background='var(--apple-card)'">
-        <span style="font-size: 18px;">📖</span>
-        <span>Accéder au BLOG SIMULARIS</span>
-        <span style="
-            background: var(--apple-blue); 
-            color: white; 
-            font-size: 9px; 
-            padding: 2px 8px; 
-            border-radius: 10px; 
-            margin-left: 5px;
-            text-transform: uppercase;
-        ">Nouveau</span>
-    </a>
-</div>
-
-
-
+    <div class="nav-container">
+        <nav class="tabs">
+            <button class="tab-btn active" onclick="switchTab('salaire', this)">Salaire</button>
+            <button class="tab-btn" onclick="switchTab('heures', this)">Heures Supp.</button>
+            <button class="tab-btn" onclick="switchTab('km', this)">Frais KM</button>
+            <button class="tab-btn" onclick="switchTab('indemnite', this)">Indemnités</button>
+            <button class="tab-btn" onclick="switchTab('comparatif', this)">Comparatif</button>
+            <button class="tab-btn" onclick="switchTab('prime', this)">Prime Act.</button>
+        </nav>
+    </div>
 </header>
 
 <div id="capture-area" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
     
     <div id="page-salaire" class="page active main-layout">
-        <h2 class="page-header-title">Salaire brut en net 2026</h2>
         <aside class="glass-card">
-            <label>Mode de saisie</label>
-            <select id="inputMode" onchange="toggleInputMode()" style="margin-bottom: 15px; background: var(--apple-blue); color: white;">
-                <option value="horaire">Taux Horaire</option>
-                <option value="mensuel">Mensuel Brut</option>
-                <option value="annuel">Annuel Brut</option>
-            </select>
+            <div class="input-group">
+                <label>Statut Professionnel</label>
+                <select id="statut" onchange="updateAll('statut')" style="background: var(--apple-blue); color: white;">
+                    <option value="0.22">Salarié Non-Cadre (~22%)</option>
+                    <option value="0.25">Cadre (~25%)</option>
+                    <option value="0.15">Fonction Publique (~15%)</option>
+                    <option value="0.45">Indépendant / TNS (~45%)</option>
+                    <option value="0.47">Portage Salarial (~47%)</option>
+                </select>
+            </div>
+            <div class="divider"></div>
+            
+            <label>HORAIRE</label>
+            <div class="input-group sync-grid">
+                <div><input type="number" id="inputHBrut" placeholder="Brut" step="0.01" oninput="updateAll('hBrut')"></div>
+                <div><input type="number" id="inputHNet" placeholder="Net" step="0.01" oninput="updateAll('hNet')"></div>
+            </div>
 
-            <div id="group-horaire">
-                <label>Taux Brut Horaire (€)</label>
-                <input type="number" id="inputHBrut" step="0.01" value="15" oninput="syncInputs('horaire')">
+            <label>MENSUEL</label>
+            <div class="input-group sync-grid">
+                <div><input type="number" id="inputMBrut" placeholder="Brut" oninput="updateAll('mBrut')"></div>
+                <div><input type="number" id="inputMNet" placeholder="Net" oninput="updateAll('mNet')"></div>
             </div>
-            <div id="group-mensuel" style="display:none;">
-                <label>Mensuel Brut (€)</label>
-                <input type="number" id="inputMBrut" step="1" oninput="syncInputs('mensuel')">
-            </div>
-            <div id="group-annuel" style="display:none;">
-                <label>Annuel Brut (€)</label>
-                <input type="number" id="inputYBrut" step="1" oninput="syncInputs('annuel')">
+
+            <label>ANNUEL</label>
+            <div class="input-group">
+                <input type="number" id="inputYBrut" placeholder="Annuel Brut" oninput="updateAll('yBrut')">
             </div>
 
             <div class="divider"></div>
             <label>Temps de travail : <span id="labelQuotite" style="color:var(--apple-blue)">100</span>%</label>
-            <input type="range" id="quotite" min="10" max="100" value="100" step="5" oninput="calculerBase()">
+            <input type="range" id="quotite" min="10" max="100" value="100" step="5" oninput="updateAll('quotite')">
 
             <div class="input-group">
-                <label>Statut (Cotisations)</label>
-                <select id="statut" onchange="calculerBase()">
-                    <option value="0.22">Non-Cadre (~22%)</option>
-                    <option value="0.25">Cadre (~25%)</option>
-                    <option value="0.17">Fonction Publique (~17%)</option>
-                    <option value="0.35">Libéral ou Indépendant (~35%)</option>
-                    <option value="0.47">Portage Salarial (~47%)</option>
-                </select>
-            </div>
-            <div class="input-group">
                 <label>Prélèvement à la source (%)</label>
-                <input type="number" id="impot" value="5" oninput="calculerBase()">
+                <input type="number" id="impot" value="0" step="0.1" oninput="updateAll('impot')">
             </div>
 
             <div class="divider"></div>
-            <label>Bonus & Primes</label>
+            <label>Primes & 13ème Mois</label>
             <div class="input-group">
-                <label>Nombre de mois (13e/14e)</label>
-                <select id="nbMois" onchange="calculerBase()">
-                    <option value="0">12 mois</option>
+                <select id="nbMois" onchange="updateAll('prime')">
+                    <option value="0">12 mois (Standard)</option>
                     <option value="1">13ème mois</option>
                     <option value="2">14ème mois</option>
                 </select>
             </div>
             <div class="input-group">
-                <label>Primes Annuelles Brut</label>
-                <input type="number" id="primesAnnuelles" value="0" oninput="calculerBase()">
+                <label>Primes Annuelles (Brut)</label>
+                <input type="number" id="primesAnnuelles" value="0" oninput="updateAll('prime')">
             </div>
 
             <div class="divider"></div>
-            <label>Avantages mensuels</label>
-            <div class="input-group"><label>Tickets Resto (Part Salarié)</label><input type="number" id="ticketResto" value="0" oninput="calculerBase()"></div>
-            <div class="input-group"><label>Mutuelle (Part Salarié)</label><input type="number" id="mutuelle" value="0" oninput="calculerBase()"></div>
-            <div class="input-group"><label>Transport (Remboursement)</label><input type="number" id="transport" value="0" oninput="calculerBase()"></div>
+            <label>Avantages</label>
+            <div class="input-group"><label>Tickets Resto (Part Salarié)</label><input type="number" id="ticketResto" value="0" oninput="updateAll('frais')"></div>
+            <div class="input-group"><label>Mutuelle (Part Salarié)</label><input type="number" id="mutuelle" value="0" oninput="updateAll('frais')"></div>
+            <div class="input-group"><label>Transport (Remboursement +)</label><input type="number" id="transport" value="0" oninput="updateAll('frais')"></div>
         </aside>
 
         <main class="results-grid">
             <div class="highlight-card">
                 <span class="res-label" style="color:white;opacity:0.8">Net à payer (Après impôts)</span>
                 <span class="res-val" id="finalNetMensuel" style="font-size: 48px;">0 €</span>
-                <div style="font-size: 14px; margin-top: 10px; opacity: 0.9;">Impôt prélevé : <span id="montantImpot">0 €</span></div>
+                <div style="font-size: 14px; margin-top: 10px; opacity: 0.9;">Impôt : <span id="montantImpot">0 €</span></div>
                 <div><button class="btn-action" onclick="generatePDF()">Télécharger PDF</button></div>
             </div>
-            <div class="res-item lisse-card">
+
+            <div class="res-item">
                 <span class="res-label" style="color: var(--apple-purple)">Mensuel Net Lissé</span>
                 <div class="res-val" id="netLisseDisplay">0 €</div>
-                <div style="font-size: 11px; opacity: 0.7; margin-top:5px;">Inclut Primes & 13e/14e mois</div>
+                <div style="font-size: 11px; opacity: 0.7; margin-top:5px;">Inclut Primes & 13e mois</div>
             </div>
-            <div class="res-item" style="border: 1px solid var(--apple-orange)">
-                <span class="res-label" style="color: var(--apple-orange)">Coût Employeur Mensuel</span>
+
+            <div class="res-item">
+                <span class="res-label" style="color: var(--apple-orange)">Coût Employeur</span>
                 <div class="res-val" id="coutEmployeur" style="color: var(--apple-orange)">0 €</div>
             </div>
+
             <div class="res-item">
                 <span class="res-label">Détails Mensuels</span>
                 <div style="font-size: 13px;">Brut : <span id="mBrutDisplay">0 €</span></div>
                 <div style="font-size: 13px; margin-top:4px;">Net avant impôt : <span id="mNetAvantImpot">0 €</span></div>
             </div>
+
             <div class="res-item">
                 <span class="res-label">Récapitulatif Annuel</span>
                 <div style="font-size: 13px;">Total Brut : <span id="yBrutDisplay">0 €</span></div>
@@ -347,569 +238,384 @@ footer { padding: 40px; text-align: center; color: var(--apple-gray); font-size:
     </div>
 
     <div id="page-heures" class="page main-layout">
-        <h2 class="page-header-title">Calcul heures supplémentaires</h2>
         <aside class="glass-card">
-            <label>Paramètres (Sync)</label>
-            <div class="input-group"><label>Salaire Net de Base</label><input type="number" id="baseSalaryForSupp" value="2000" oninput="calculerSupp()"></div>
-            <div class="input-group"><label>Taux Horaire Brut</label><input type="number" id="suppHBrut" value="15" oninput="calculerSupp()"></div>
+            <label>Votre situation</label>
+            <div class="input-group">
+                <label>Salaire Net Mensuel (€)</label>
+                <input type="number" id="baseSalaryForSupp" readonly style="background:#e0e0e0; color:#555">
+                <small style="color:var(--apple-gray)">Calculé depuis l'onglet Salaire</small>
+            </div>
+            <div class="input-group">
+                <label>Taux Horaire Brut (€)</label>
+                <input type="number" id="suppHBrut" readonly style="background:#e0e0e0; color:#555">
+            </div>
             <div class="divider"></div>
-            <label>Heures hebdo (Base 35h)</label>
-            <input type="number" class="week-h" value="39" oninput="calculerSupp()" style="margin-bottom:8px">
-            <input type="number" class="week-h" value="35" oninput="calculerSupp()" style="margin-bottom:8px">
-            <input type="number" class="week-h" value="35" oninput="calculerSupp()" style="margin-bottom:8px">
-            <input type="number" class="week-h" value="35" oninput="calculerSupp()">
+            <label>Heures effectuées</label>
+            <div class="input-group">
+                <label>Heures à 25% (Standard)</label>
+                <input type="number" id="nbHeures25" value="0" oninput="calculerSupp()">
+            </div>
+            <div class="input-group">
+                <label>Heures à 50% (Dimanche/Nuit)</label>
+                <input type="number" id="nbHeures50" value="0" oninput="calculerSupp()">
+            </div>
         </aside>
         <main class="results-grid">
-             <div class="highlight-card" style="background: var(--apple-green);">
-    <label style="color:white">Gain Net Total (Heures Supp)</label>
-    <div id="totalSuppNet" style="font-size: 48px; font-weight: 600;">0 €</div>
-    
-    <div style="font-size: 16px; font-weight: 600; margin-top: 5px;">
-        Volume mensuel : <span id="totalHoursVol">0h</span>
-    </div>
-
-    <div style="font-size: 13px; opacity: 0.9; margin-top: 5px;">
-        <span id="detail25">0h à 25%</span> | <span id="detail50">0h à 50%</span>
-    </div>
-    
-    <div style="font-size: 11px; margin-top: 8px; opacity: 0.8;">
-        Inclut la réduction de cotisations (avantage de ~11,31%)
-    </div>
-</div>
-              <div class="res-item" style="grid-column: 1 / -1; text-align:center;">
-                <span class="res-label">Total Salaire + Heures Supp</span>
-                <div class="res-val" id="salaryPlusSupp" style="color:var(--apple-green)">0 €</div>
+            <div class="highlight-card" style="background: linear-gradient(135deg, #af52de, #ff2d55);">
+                <span class="res-label" style="color:white;opacity:0.8">Gain Net Total</span>
+                <span class="res-val" id="gainSuppTotal">0 €</span>
+            </div>
+            <div class="res-item">
+                <span class="res-label">Nouveau Net à payer</span>
+                <span class="res-val" id="newNetSupp">0 €</span>
             </div>
         </main>
     </div>
+
+    <div id="page-km" class="page main-layout">
+        <aside class="glass-card">
+            <label>Véhicule</label>
+            <div class="input-group">
+                <select id="km-cv" onchange="calculerKM()">
+                    <option value="3">3 CV et moins</option>
+                    <option value="4">4 CV</option>
+                    <option value="5">5 CV</option>
+                    <option value="6">6 CV</option>
+                    <option value="7">7 CV et plus</option>
+                </select>
             </div>
-          
+            <div class="input-group">
+                <label>Distance domicile-travail (km aller)</label>
+                <input type="number" id="km-dist" value="20" oninput="calculerKM()">
+            </div>
+            <div class="input-group">
+                <label>Jours travaillés / an</label>
+                <input type="number" id="km-jours" value="218" oninput="calculerKM()">
+            </div>
+        </aside>
+        <main class="results-grid">
+            <div class="highlight-card" style="background: linear-gradient(135deg, #30c759, #30c7ec);">
+                <span class="res-label" style="color:white;opacity:0.8">Montant Remboursable</span>
+                <span class="res-val" id="km-result">0 €</span>
+            </div>
+            <div class="res-item">
+                <span class="res-label">Distance Annuelle</span>
+                <span class="res-val" id="km-total-dist">0 km</span>
+            </div>
+        </main>
+    </div>
+
+    <div id="page-indemnite" class="page main-layout">
+        <aside class="glass-card">
+            <label>Ancienneté (Années)</label>
+            <input type="number" id="indem-anciennete" value="5" oninput="calculerIndemnite()">
+            <label>Salaire Brut de référence (€)</label>
+            <input type="number" id="indem-salaire" value="2500" oninput="calculerIndemnite()">
+        </aside>
+        <main class="results-grid">
+            <div class="highlight-card" style="background: linear-gradient(135deg, #ff9500, #ffcc00);">
+                <span class="res-label" style="color:white;opacity:0.8">Indemnité Légale</span>
+                <span class="res-val" id="indem-montant">0 €</span>
+            </div>
+        </main>
+    </div>
+
     <div id="page-comparatif" class="page main-layout">
-        <h2 class="page-header-title">Comparateur d'offre d'emploi</h2>
         <aside class="glass-card">
-            <label>Offre A (Actuelle)</label>
-            <div class="input-group">
-                <label>Brut Annuel (€)</label>
-                <input type="number" id="compBrutA" value="38000" oninput="comparer()">
-            </div>
-            <div class="input-group">
-                <label>Primes Annuelles (€)</label>
-                <input type="number" id="compPrimesA" value="0" oninput="comparer()">
-            </div>
+            <label>Offre A (Brut Annuel)</label>
+            <input type="number" id="compBrutA" placeholder="Ex: 35000" oninput="comparer()">
             <div class="divider"></div>
-            <label>Offre B (Nouvelle)</label>
-            <div class="input-group">
-                <label>Brut Annuel (€)</label>
-                <input type="number" id="compBrutB" value="42000" oninput="comparer()">
-            </div>
-            <div class="input-group">
-                <label>Primes Annuelles (€)</label>
-                <input type="number" id="compPrimesB" value="2000" oninput="comparer()">
-            </div>
+            <label>Offre B (Brut Annuel)</label>
+            <input type="number" id="compBrutB" placeholder="Ex: 42000" oninput="comparer()">
         </aside>
-
         <main class="results-grid">
-            <div class="highlight-card" id="comparatifResultCard" style="background: var(--apple-orange);">
-                <span class="res-label" style="color:white">Différence de Revenu Net</span>
-                <span class="res-val" id="diffAnnuelle" style="font-size: 42px;">+ 0 € / an</span>
-                <div id="diffMensuelle" style="margin-top:5px; font-weight: 600;">+ 0 € / mois</div>
+            <div class="res-item">
+                <span class="res-label">Net Offre A</span>
+                <span class="res-val" id="compNetA">0 €</span>
             </div>
-
-            <div class="res-item" id="cardA">
-                <div id="tagA"></div>
-                <span class="res-label">Offre A</span>
-                <div class="res-val" id="compNetA">0 €</div>
-                <div class="comp-detail"><span>Mensuel Net</span><span id="detMensA">0 €</span></div>
-                <div class="comp-detail"><span>Coût Patron</span><span id="detPatronA">0 €</span></div>
+            <div class="res-item">
+                <span class="res-label">Net Offre B</span>
+                <span class="res-val" id="compNetB">0 €</span>
             </div>
+            <div class="highlight-card">
+                <span class="res-label" style="color:white;opacity:0.8">Différence Mensuelle Net</span>
+                <span class="res-val" id="compDiff">0 €</span>
+            </div>
+        </main>
+    </div>
 
-            <div class="res-item" id="cardB">
-                <div id="tagB"></div>
-                <span class="res-label">Offre B</span>
-                <div class="res-val" id="compNetB">0 €</div>
-                <div class="comp-detail"><span>Mensuel Net</span><span id="detMensB">0 €</span></div>
-                <div class="comp-detail"><span>Coût Patron</span><span id="detPatronB">0 €</span></div>
+    <div id="page-prime" class="page main-layout">
+        <aside class="glass-card">
+            <label>Salaire Net Avant Impôt</label>
+            <input type="number" id="prime-salaire" value="1300" oninput="calculerPrime()">
+            <label>Aides au logement ?</label>
+            <select id="prime-logement" onchange="calculerPrime()">
+                <option value="non">Non</option>
+                <option value="oui">Oui (APL...)</option>
+            </select>
+        </aside>
+        <main class="results-grid">
+            <div class="highlight-card" style="background: linear-gradient(135deg, #5e5ce6, #bf5af2);">
+                <span class="res-label" style="color:white;opacity:0.8">Estimation Prime</span>
+                <span class="res-val" id="prime-montant">0 €</span>
+                <small style="color:rgba(255,255,255,0.7); display:block; margin-top:5px;">Montant indicatif CAF</small>
             </div>
         </main>
     </div>
 </div>
 
-<div id="page-indemnite" class="page">
-    <div class="glass-card">
-        <h2>Simulateur d'Indemnité de Rupture</h2>
-        <div class="input-group">
-            <label>Salaire mensuel brut de référence (€)</label>
-            <input type="number" id="indem-salaire" placeholder="Moyenne des 12 derniers mois" oninput="calculerIndemnite()">
+<div class="info-section">
+    <h2 class="section-title">Comprendre votre statut 2026</h2>
+    <div class="status-grid">
+        <div class="status-card">
+            <div class="status-icon">NC</div>
+            <h3>Non-Cadre (22%)</h3>
+            <p>Le statut standard du privé. Cotisations sociales réduites pour un salaire net plus élevé à brut égal.</p>
         </div>
-        <div class="input-group">
-            <label>Ancienneté (en années)</label>
-            <input type="number" id="indem-anciennete" step="0.1" placeholder="Ex: 5.5" oninput="calculerIndemnite()">
+        <div class="status-card">
+            <div class="status-icon" style="background:var(--apple-purple)">CA</div>
+            <h3>Cadre (25%)</h3>
+            <p>Cotisations plus élevées incluant l'APEC et une prévoyance obligatoire. Meilleure couverture retraite.</p>
         </div>
-        
-        <div id="resultat-indemnite" class="res-card" style="display:none; margin-top: 20px; text-align: center; background: var(--apple-blue); color: white; padding: 20px; border-radius: 15px;">
-            <div style="font-size: 14px; opacity: 0.9;">INDEMNITÉ LÉGALE MINIMUM</div>
-            <div id="indem-montant" style="font-size: 32px; font-weight: 600;">0 €</div>
+        <div class="status-card">
+            <div class="status-icon" style="background:var(--apple-green)">FP</div>
+            <h3>Fonctionnaire</h3>
+            <p>Environ 15% de charges car pas de cotisation chômage. Le calcul du net diffère du privé.</p>
+        </div>
+        <div class="status-card">
+            <div class="status-icon" style="background:var(--apple-orange)">IN</div>
+            <h3>Indépendant</h3>
+            <p>Charges variables (environ 45%) via l'URSSAF. Le brut correspond au chiffre d'affaires après frais.</p>
+        </div>
+    </div>
+
+    <h2 class="section-title">Questions Fréquentes</h2>
+    <div class="faq-grid">
+        <div class="faq-item">
+            <span class="faq-question">Quelle différence entre Net et Net à Payer ?</span>
+            <p class="faq-answer">Le <strong>Net avant impôt</strong> est votre salaire après cotisations sociales. Le <strong>Net à payer</strong> est ce qui arrive sur votre compte après le prélèvement à la source de l'impôt.</p>
+        </div>
+        <div class="faq-item">
+            <span class="faq-question">Comment est calculé le coût employeur ?</span>
+            <p class="faq-answer">C'est le coût total pour l'entreprise : Salaire Brut + Charges Patronales (environ 45% du brut). C'est le budget réel de votre poste.</p>
+        </div>
+        <div class="faq-item">
+            <span class="faq-question">Les heures supplémentaires sont-elles imposables ?</span>
+            <p class="faq-answer">En 2026, elles sont exonérées d'impôt sur le revenu jusqu'à un plafond annuel (environ 7500€) et bénéficient d'une réduction de cotisations.</p>
+        </div>
+        <div class="faq-item">
+            <span class="faq-question">Pourquoi lisser le salaire sur 12 mois ?</span>
+            <p class="faq-answer">Le "Net Lissé" divise votre revenu annuel total (avec 13e mois et primes) par 12. Cela donne une image plus juste de votre pouvoir d'achat mensuel réel.</p>
         </div>
     </div>
 </div>
-
-<div id="page-km" class="page">
-    <div class="glass-card">
-        <h2>Frais Kilométriques 2026</h2>
-        <div class="input-group">
-            <label>Puissance fiscale du véhicule</label>
-            <select id="cv-auto" onchange="calculerKM()">
-                <option value="0.529">3 CV et moins</option>
-                <option value="0.606">4 CV</option>
-                <option value="0.636">5 CV</option>
-                <option value="0.665">6 CV</option>
-                <option value="0.697">7 CV et plus</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label>Distance totale annuelle (km)</label>
-            <input type="number" id="km-annuel" placeholder="Ex: 12000" oninput="calculerKM()">
-        </div>
-        
-        <div id="resultat-km" class="res-card" style="display:none; margin-top: 20px; text-align: center; background: var(--apple-blue); color: white; padding: 20px; border-radius: 15px;">
-            <div style="font-size: 14px; opacity: 0.9;">DÉDUCTION FISCALE ESTIMÉE</div>
-            <div id="km-montant" style="font-size: 32px; font-weight: 600;">0 €</div>
-        </div>
-    </div>
-</div>
-
-<div id="page-prime" class="page">
-    <div class="glass-card">
-        <h2>Estimateur Prime d'Activité</h2>
-        <p style="font-size: 12px; color: var(--apple-gray); margin-bottom: 20px;">Estimation basée sur un profil célibataire sans autres revenus.</p>
-        
-        <div class="input-group">
-            <label>Votre Salaire Net Mensuel (€)</label>
-            <input type="number" id="prime-salaire" placeholder="Ex: 1400" oninput="calculerPrime()">
-        </div>
-        
-        <div class="input-group">
-            <label>Aide au Logement (APL)</label>
-            <select id="prime-logement" onchange="calculerPrime()">
-                <option value="oui">Oui (ou logé gratuitement)</option>
-                <option value="non">Non</option>
-            </select>
-        </div>
-
-        <div id="resultat-prime" class="res-card" style="display:none; margin-top: 20px; text-align: center; background: var(--apple-blue); color: white; padding: 20px; border-radius: 15px;">
-            <div style="font-size: 14px; opacity: 0.9;">PRIME ESTIMÉE</div>
-            <div id="prime-montant" style="font-size: 32px; font-weight: 600;">0 €</div>
-            <div style="font-size: 11px; margin-top: 10px; opacity: 0.8;">*Montant indicatif avant calcul précis de la CAF.</div>
-        </div>
-    </div>
-</div>
-
-<div class="seo-container">
-    <div class="seo-block">
-        <h2 class="seo-section-title">Comprendre votre statut en 2026</h2>
-        <div class="statuts-grid">
-            <div class="statut-card">
-                <div class="statut-icon">NC</div>
-                <h3>Non-Cadre</h3>
-                <p>Le régime standard avec un taux de cotisations de 22%. Idéal pour la majorité des fiches de paie privées.</p>
-            </div>
-            <div class="statut-card">
-                <div class="statut-icon" style="background:var(--apple-purple)">CA</div>
-                <h3>Cadre</h3>
-                <p>Un taux de 25% incluant la prévoyance et les cotisations APEC pour une retraite complémentaire renforcée.</p>
-            </div>
-            <div class="statut-card">
-                <div class="statut-icon" style="background:var(--apple-green)">FP</div>
-                <h3>Fonction Publique</h3>
-                <p>Environ 17% de charges. Un net plus élevé car les fonctionnaires ne cotisent pas au chômage.</p>
-            </div>
-            <div class="statut-card">
-                <div class="statut-icon" style="background:var(--apple-orange)">IN</div>
-                <h3>Indépendant</h3>
-                <p>Un taux moyen de 35% pour les professions libérales et TNS via les prélèvements URSSAF.</p>
-            </div>
-            <div class="statut-card">
-                <div class="statut-icon" style="background:var(--apple-text)">PS</div>
-                <h3>Portage</h3>
-                <p>Un taux de 47% qui combine sécurité du salariat et indépendance totale.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="seo-block">
-        <h2 class="seo-section-title">Questions Fréquentes</h2>
-        <div class="faq-grid">
-            <div class="faq-item">
-                <h4><span>●</span> Net avant impôt vs Net à payer ?</h4>
-                <p>Le <b>Net avant impôt</b> est votre salaire après cotisations sociales. Le <b>Net à payer</b> est la somme finale virée sur votre compte après déduction de l'impôt à la source.</p>
-            </div>
-            <div class="faq-item">
-                <h4><span>●</span> Comment est calculé le coût employeur ?</h4>
-                <p>C'est le montant total payé par l'entreprise : Salaire Brut + Charges Patronales (environ 45%). C'est un argument clé lors d'une négociation.</p>
-            </div>
-            <div class="faq-item">
-                <h4><span>●</span> Défiscalisation des heures supplémentaires ?</h4>
-                <p>En 2026, les heures supplémentaires restent exonérées de cotisations salariales de vieillesse et sont défiscalisées jusqu'à un certain plafond (7500€ net par an).</p>
-            </div>
-            <div class="faq-item">
-                <h4><span>●</span> Pourquoi utiliser le "Mensuel Lissé" ?</h4>
-                <p>Cela inclut vos primes et 13e/14e mois dans votre budget moyen pour mieux gérer vos dépenses réelles sur l'année.</p>
-            </div>
-
- <div class="faq-item">
-                <h4><span>●</span> Quel est le taux horaire brut du SMIC en 2026 ?</h4>
-                <p>En 2026, le taux horaire du SMIC est de 12.14€ brut par heure, soit 1841,26€ brut mensuel ce qui correspond à 1454,60€ net mensuel.</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<section style="width: 100%; max-width: 1100px; margin: 60px auto; padding: 20px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-        <h2 style="font-size: 28px; font-weight: 600; letter-spacing: -0.02em;">Nos guides carrières & salaires</h2>
-        <a href="blog.html" style="color: var(--apple-blue); text-decoration: none; font-weight: 600; font-size: 15px;">Voir tout le blog →</a>
-    </div>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-        
-        <div class="glass-card" style="padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-                <span style="color: var(--apple-blue); font-size: 11px; font-weight: 700; text-transform: uppercase;">Actualité</span>
-                <h3 style="margin: 10px 0; font-size: 18px;">Le SMIC en 2026 : Ce qui change vraiment</h3>
-                <p style="color: var(--apple-gray); font-size: 14px; line-height: 1.5;">Analyse des nouveaux taux horaires et impact sur votre salaire net mensuel...</p>
-            </div>
-            <a href="articles/smic-2026.html" style="color: var(--apple-blue); text-decoration: none; font-weight: 600; font-size: 14px; margin-top: 15px;">Lire l'article</a>
-        </div>
-
-        <div class="glass-card" style="padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
-            <div>
-                <span style="color: var(--apple-blue); font-size: 11px; font-weight: 700; text-transform: uppercase;">Conseils</span>
-                <h3 style="margin: 10px 0; font-size: 18px;">Négocier son salaire en 2026</h3>
-                <p style="color: var(--apple-gray); font-size: 14px; line-height: 1.5;">Les 5 arguments imparables pour obtenir une augmentation cette année...</p>
-            </div>
-            <a href="articles/negocier-salaire.html" style="color: var(--apple-blue); text-decoration: none; font-weight: 600; font-size: 14px; margin-top: 15px;">Lire l'article</a>
-        </div>
-
-    </div>
-</section>
 
 <footer>
-    <p>© 2026 Simularis — Simulateur Haute Précision.</p>
-    <p>
-        <a class="footer-link" onclick="openModal('modal-mentions')">Mentions Légales</a> | 
-        <a class="footer-link" onclick="openModal('modal-privacy')">Confidentialité & CGU</a>
-    </p>
+    <p>© 2026 Simularis — Le simulateur de référence.</p>
+    <div class="footer-links">
+        <a onclick="openModal('modal-legal')">Mentions Légales</a>
+        <a onclick="openModal('modal-privacy')">Confidentialité (RGPD) & CGU</a>
+    </div>
 </footer>
 
-<div id="modal-mentions" class="modal" onclick="closeModal(event)">
-   <div class="modal-content">
-    <h2>Mentions Légales</h2>
-    <p><strong>1. Édition du site</strong><br>
-    Le site <strong>Simularis</strong> est un outil de simulation de salaire indépendant.<br>
-    <strong>Responsable :</strong> [Votre Nom]<br>
-    <strong>Contact :</strong> [Votre Email]</p>
-
-    <p><strong>2. Hébergement</strong><br>
-    Le site est hébergé par [Nom de l'hébergeur].</p>
-
-    <p><strong>3. Propriété intellectuelle</strong><br>
-    L'ensemble du contenu et le code source du simulateur sont la propriété exclusive de Simularis, sauf mention contraire.</p>
-
-    <p><strong>4. Responsabilité</strong><br>
-    Les résultats fournis sont donnés à titre <strong>purement indicatif</strong>. Ils ne constituent pas un document officiel ou un conseil juridique. L'éditeur ne pourra être tenu responsable d'une différence entre la simulation et votre bulletin de paie réel.</p>
-
-    <p><strong>5. Droit applicable</strong><br>
-    Le présent site est soumis au droit français.</p>
-</div>
-
-</div>
-
-<div id="modal-privacy" class="modal" onclick="closeModal(event)">
+<div id="modal-legal" class="modal">
     <div class="modal-content">
-    <h2>Confidentialité & CGU</h2>
-    <p><strong>1. Confidentialité totale (RGPD)</strong><br>
-    Simularis respecte votre vie privée :<br>
-    • <strong>Aucune donnée collectée :</strong> Vos salaires saisis ne sont jamais envoyés vers un serveur.<br>
-    • <strong>Traitement local :</strong> Les calculs se font uniquement dans votre navigateur.<br>
-    • <strong>Pas de stockage :</strong> Vos données sont effacées dès que vous fermez la page.</p>
-
-    <p><strong>2. Utilisation des Cookies</strong><br>
-    Le site n'utilise aucun cookie publicitaire ou de traçage tiers.</p>
-
-    <p><strong>3. Conditions d'Utilisation</strong><br>
-    L'utilisation du simulateur est gratuite et destinée à un usage privé. Simularis s'efforce de maintenir l'outil à jour selon les lois de finances 2026, mais ne garantit pas l'absence d'erreurs techniques.</p>
-
-    <p><strong>4. Valeur des documents</strong><br>
-    Le PDF généré par l'outil est une synthèse pour votre usage personnel et n'a aucune valeur contractuelle ou administrative.</p>
+        <button class="close-modal" onclick="closeModal('modal-legal')">×</button>
+        <div class="legal-text">
+            <h2>Mentions Légales</h2>
+            <h3>1. Éditeur</h3>
+            <p>Simularis est un outil indépendant développé à titre personnel.</p>
+            <h3>2. Hébergement</h3>
+            <p>Ce site est hébergé par [VOTRE HÉBERGEUR ICI].</p>
+            <h3>3. Propriété Intellectuelle</h3>
+            <p>Le design, les algorithmes de calcul et le code source sont la propriété exclusive de l'éditeur.</p>
+            <h3>4. Limitation de Responsabilité (Important)</h3>
+            <p>Les calculs fournis par ce simulateur sont des <strong>estimations indicatives</strong> basées sur les barèmes généraux 2026. Ils ne remplacent pas une fiche de paie officielle émise par un logiciel de paie certifié ni les conseils d'un expert-comptable. L'éditeur décline toute responsabilité quant aux décisions prises sur la base de ces chiffres.</p>
+        </div>
+    </div>
 </div>
-  </div>
 
-<button class="theme-toggle" onclick="toggleTheme()">🌓</button>
-      
-</footer>
-
-<div id="legalModal" class="modal">
-    <div class="glass-card modal-content" style="position: relative;">
-        <button onclick="toggleModal()" style="position: absolute; top: 15px; right: 15px; border: none; background: none; font-size: 24px; cursor: pointer; color: var(--apple-text);">×</button>
-        <h2 style="margin-top: 0;">Mentions Légales</h2>
-        <p><strong>Éditeur du site :</strong> Simularis (Projet Personnel)<br><strong>Contact :</strong> contact@simularis.fr</p>
-        <p><strong>Hébergement :</strong> Ce site est hébergé par [Votre Hébergeur], [Adresse].</p>
-        <hr class="divider">
-        <h3>Responsabilité et Exactitude</h3>
-        <p>Les résultats fournis par Simularis sont des estimations basées sur les législations sociales françaises prévues pour 2026. Bien que nous nous efforcions d'être les plus précis possibles, ces chiffres sont donnés à titre <b>purement indicatif</b>.</p>
-        <p>Ils ne remplacent en aucun cas une fiche de paie officielle ou les calculs de votre expert-comptable. Simularis ne pourra être tenu responsable des écarts constatés sur vos revenus réels.</p>
-        <h3>Confidentialité (RGPD)</h3>
-        <p>Simularis respecte votre vie privée : <b>aucune donnée saisie</b> dans le simulateur n'est enregistrée, stockée ou transmise à des tiers. Tous les calculs s'effectuent localement dans votre navigateur.</p>
+<div id="modal-privacy" class="modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeModal('modal-privacy')">×</button>
+        <div class="legal-text">
+            <h2>Confidentialité & CGU</h2>
+            <h3>1. Protection des Données (RGPD)</h3>
+            <p>Votre confidentialité est notre priorité absolue :</p>
+            <ul>
+                <li><strong>Aucun stockage :</strong> Simularis n'enregistre aucune de vos données.</li>
+                <li><strong>Aucun transfert :</strong> Vos salaires ne sont jamais envoyés vers un serveur.</li>
+                <li><strong>Calcul Local :</strong> Tout se passe uniquement dans votre navigateur.</li>
+            </ul>
+            <h3>2. Cookies</h3>
+            <p>Ce site n'utilise pas de cookies publicitaires ou de traçage. Un stockage local (localStorage) peut être utilisé uniquement pour sauvegarder vos préférences (ex: mode sombre) sur votre appareil.</p>
+            <h3>3. Conditions Générales d'Utilisation</h3>
+            <p>L'utilisation de ce service est gratuite et réservée à un usage personnel. L'utilisation à des fins commerciales ou l'intégration dans un autre service sans autorisation est interdite.</p>
+        </div>
     </div>
 </div>
 
 <script>
-    const SMIC_H = 151.67;
+    // --- MOTEUR DE CALCUL CENTRAL ---
+    const SMIC_H_2026 = 12.14; 
+    const BASE_HEURES = 151.67;
 
-    function toggleModal() {
-        const modal = document.getElementById('legalModal');
-        modal.style.display = (modal.style.display === 'none' || modal.style.display === '') ? 'flex' : 'none';
-    }
+    const formatEuro = (val, d=0) => new Intl.NumberFormat('fr-FR', { 
+        style: 'currency', currency: 'EUR', minimumFractionDigits: d, maximumFractionDigits: d 
+    }).format(val);
 
-    function switchTab(tabId, element) {
-    // 1. Cacher toutes les pages
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    
-    // 2. Désactiver tous les boutons
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    
-    // 3. Afficher la page demandée
-    const targetPage = document.getElementById('page-' + tabId);
-    if(targetPage) targetPage.classList.add('active');
-    
-    // 4. Activer le bouton cliqué
-    if(element) element.classList.add('active');
-
-    // 5. Cacher le blog si on n'est pas sur "salaire"
-    const blogLink = document.getElementById('container-blog-link');
-    if(blogLink) {
-        blogLink.style.display = (tabId === 'salaire') ? 'flex' : 'none';
-    }
-}
-
-    function toggleInputMode() {
-        const mode = document.getElementById('inputMode').value;
-        document.getElementById('group-horaire').style.display = (mode === 'horaire') ? 'block' : 'none';
-        document.getElementById('group-mensuel').style.display = (mode === 'mensuel') ? 'block' : 'none';
-        document.getElementById('group-annuel').style.display = (mode === 'annuel') ? 'block' : 'none';
-    }
-
-    function syncInputs(source) {
-        const extra = parseInt(document.getElementById('nbMois').value);
-        let h = parseFloat(document.getElementById('inputHBrut').value) || 0;
-        let m = parseFloat(document.getElementById('inputMBrut').value) || 0;
-        let y = parseFloat(document.getElementById('inputYBrut').value) || 0;
-
-        if (source === 'horaire') { 
-            m = h * SMIC_H; 
-            y = m * (12 + extra); 
-            document.getElementById('inputMBrut').value = Math.round(m);
-            document.getElementById('inputYBrut').value = Math.round(y);
-        } else if (source === 'mensuel') { 
-            h = m / SMIC_H; 
-            y = m * (12 + extra); 
-            document.getElementById('inputHBrut').value = h.toFixed(2);
-            document.getElementById('inputYBrut').value = Math.round(y);
-        } else if (source === 'annuel') { 
-            m = y / (12 + extra); 
-            h = m / SMIC_H; 
-            document.getElementById('inputHBrut').value = h.toFixed(2);
-            document.getElementById('inputMBrut').value = Math.round(m);
-        }
-        calculerBase();
-    }
-
-    function calculerBase() {
-        const q = parseFloat(document.getElementById('quotite').value);
-        document.getElementById('labelQuotite').innerText = q;
-        const hBrutUnitaire = parseFloat(document.getElementById('inputHBrut').value) || 0;
-        const hReel = hBrutUnitaire * (q / 100);
-        const mBrut = hReel * SMIC_H;
-        const extraMois = parseInt(document.getElementById('nbMois').value);
-        const primes = (parseFloat(document.getElementById('primesAnnuelles').value) || 0) * (q/100);
-        const stat = parseFloat(document.getElementById('statut').value);
-        const tImpot = (parseFloat(document.getElementById('impot').value) || 0) / 100;
+    function updateAll(source) {
+        const elHBrut = document.getElementById('inputHBrut');
+        const elHNet  = document.getElementById('inputHNet');
+        const elMBrut = document.getElementById('inputMBrut');
+        const elMNet  = document.getElementById('inputMNet');
+        const elYBrut = document.getElementById('inputYBrut');
         
-        const mNetSocial = (mBrut * (1 - stat)) - (parseFloat(document.getElementById('ticketResto').value)||0) - (parseFloat(document.getElementById('mutuelle').value)||0) + (parseFloat(document.getElementById('transport').value)||0);
-        const mImpot = mNetSocial * tImpot;
-        const mNetFinal = mNetSocial - mImpot;
-        const yNet = ((mBrut * (12 + extraMois) + primes) * (1 - stat) * (1 - tImpot));
+        const tauxCharges = parseFloat(document.getElementById('statut').value);
+        const quotite = parseFloat(document.getElementById('quotite').value) / 100;
+        document.getElementById('labelQuotite').innerText = Math.round(quotite * 100);
         
-        document.getElementById('finalNetMensuel').innerText = formatEuro(mNetFinal);
-        document.getElementById('montantImpot').innerText = formatEuro(mImpot);
+        const coefNet = 1 - tauxCharges;
+
+        let hBrutBase = 0;
+
+        if (source === 'hBrut') hBrutBase = parseFloat(elHBrut.value) || 0;
+        else if (source === 'hNet') hBrutBase = (parseFloat(elHNet.value) || 0) / coefNet;
+        else if (source === 'mBrut') hBrutBase = (parseFloat(elMBrut.value) || 0) / BASE_HEURES;
+        else if (source === 'mNet') hBrutBase = ((parseFloat(elMNet.value) || 0) / coefNet) / BASE_HEURES;
+        else if (source === 'yBrut') hBrutBase = ((parseFloat(elYBrut.value) || 0) / 12) / BASE_HEURES;
+        else hBrutBase = (parseFloat(elMBrut.value) || 0) / BASE_HEURES;
+
+        const valHBrut = hBrutBase;
+        const valHNet  = hBrutBase * coefNet;
+        const valMBrut = hBrutBase * BASE_HEURES;
+        const valMNet  = valMBrut * coefNet;
+        const valYBrut = valMBrut * 12;
+
+        if (source !== 'hBrut') elHBrut.value = valHBrut > 0 ? valHBrut.toFixed(2) : '';
+        if (source !== 'hNet')  elHNet.value  = valHNet > 0 ? valHNet.toFixed(2) : '';
+        if (source !== 'mBrut') elMBrut.value = valMBrut > 0 ? Math.round(valMBrut) : '';
+        if (source !== 'mNet')  elMNet.value  = valMNet > 0 ? Math.round(valMNet) : '';
+        if (source !== 'yBrut') elYBrut.value = valYBrut > 0 ? Math.round(valYBrut) : '';
+
+        calculerResultatsFinaux(valMBrut, valYBrut, tauxCharges, quotite);
+    }
+
+    function calculerResultatsFinaux(mBrutTheorique, yBrutTheorique, tauxCharges, quotite) {
+        const nbMoisExtra = parseInt(document.getElementById('nbMois').value) || 0;
+        const primes = parseFloat(document.getElementById('primesAnnuelles').value) || 0;
+        const tauxImpot = (parseFloat(document.getElementById('impot').value) || 0) / 100;
+        
+        const fraisResto = parseFloat(document.getElementById('ticketResto').value) || 0;
+        const fraisMutuelle = parseFloat(document.getElementById('mutuelle').value) || 0;
+        const gainTransport = parseFloat(document.getElementById('transport').value) || 0;
+
+        const mBrutReel = mBrutTheorique * quotite;
+        const mNetSocial = mBrutReel * (1 - tauxCharges);
+        const montantImpot = mNetSocial * tauxImpot;
+        const mNetAPayer = mNetSocial - montantImpot - fraisResto - fraisMutuelle + gainTransport;
+
+        const yBrutTotal = (mBrutReel * (12 + nbMoisExtra)) + primes;
+        const yNetTotal = yBrutTotal * (1 - tauxCharges) * (1 - tauxImpot);
+
+        document.getElementById('finalNetMensuel').innerText = formatEuro(mNetAPayer);
+        document.getElementById('montantImpot').innerText = formatEuro(montantImpot);
+        document.getElementById('netLisseDisplay').innerText = formatEuro(yNetTotal / 12);
+        document.getElementById('coutEmployeur').innerText = formatEuro(mBrutReel * 1.45);
+        document.getElementById('mBrutDisplay').innerText = formatEuro(mBrutReel);
         document.getElementById('mNetAvantImpot').innerText = formatEuro(mNetSocial);
-        document.getElementById('netLisseDisplay').innerText = formatEuro(yNet / 12);
-        document.getElementById('coutEmployeur').innerText = formatEuro(mBrut * 1.45);
-        document.getElementById('yBrutDisplay').innerText = formatEuro(mBrut * (12 + extraMois) + primes);
-        document.getElementById('yNetDisplay').innerText = formatEuro(yNet);
-        document.getElementById('mBrutDisplay').innerText = formatEuro(mBrut);
+        document.getElementById('yBrutDisplay').innerText = formatEuro(yBrutTotal);
+        document.getElementById('yNetDisplay').innerText = formatEuro(yNetTotal);
 
-        document.getElementById('baseSalaryForSupp').value = Math.round(mNetFinal);
-        document.getElementById('suppHBrut').value = hBrutUnitaire.toFixed(2);
-        calculerSupp();
+        const hsBase = document.getElementById('baseSalaryForSupp');
+        const hsBrut = document.getElementById('suppHBrut');
+        if(hsBase) hsBase.value = Math.round(mNetAPayer);
+        if(hsBrut) hsBrut.value = (mBrutTheorique / BASE_HEURES).toFixed(2);
     }
 
-        function calculerSupp() {
-    const hB = parseFloat(document.getElementById('suppHBrut').value) || 0;
-    const base = parseFloat(document.getElementById('baseSalaryForSupp').value) || 0;
-    const stat = parseFloat(document.getElementById('statut').value);
-    
-    let gainTotalNet = 0;
-    let totalH25 = 0;
-    let totalH50 = 0;
+    function calculerSupp() {
+        const netActuel = parseFloat(document.getElementById('baseSalaryForSupp').value) || 0;
+        const hBrut = parseFloat(document.getElementById('suppHBrut').value) || 0;
+        const h25 = parseFloat(document.getElementById('nbHeures25').value) || 0;
+        const h50 = parseFloat(document.getElementById('nbHeures50').value) || 0;
+        const tauxNetHS = hBrut * 0.89; 
+        const totalGain = (h25 * tauxNetHS * 1.25) + (h50 * tauxNetHS * 1.50);
+        document.getElementById('gainSuppTotal').innerText = formatEuro(totalGain);
+        document.getElementById('newNetSupp').innerText = formatEuro(netActuel + totalGain);
+    }
 
-    document.querySelectorAll('.week-h').forEach(i => {
-        let hTotal = parseFloat(i.value) || 0;
-        let hSuppSemaine = hTotal - 35;
+    function calculerKM() {
+        const d = parseFloat(document.getElementById('km-dist').value) || 0;
+        const j = parseFloat(document.getElementById('km-jours').value) || 0;
+        const cv = parseInt(document.getElementById('km-cv').value);
+        
+        const kmTotal = d * 2 * j;
+        let indemnite = 0;
+        if (cv <= 3) indemnite = kmTotal * 0.529;
+        else if (cv === 4) indemnite = kmTotal * 0.606;
+        else if (cv === 5) indemnite = kmTotal * 0.636;
+        else if (cv === 6) indemnite = kmTotal * 0.665;
+        else indemnite = kmTotal * 0.697;
 
-        if (hSuppSemaine > 0) {
-            if (hSuppSemaine <= 8) {
-                totalH25 += hSuppSemaine;
-            } else {
-                totalH25 += 8;
-                totalH50 += (hSuppSemaine - 8);
-            }
-        }
-    });
+        document.getElementById('km-total-dist').innerText = kmTotal + " km";
+        document.getElementById('km-result').innerText = formatEuro(indemnite);
+    }
 
-    // Calcul du gain (on utilise 4.33 pour transformer l'hebdo en mensuel moyen)
-    // Majorations : 1.25 (+25%) et 1.50 (+50%)
-    const gainBrut25 = totalH25 * hB * 1.25;
-    const gainBrut50 = totalH50 * hB * 1.50;
-    
-    // Application de la réduction de cotisations (environ 11.31%)
-    gainTotalNet = (gainBrut25 + gainBrut50) * ((1 - stat) + 0.1131);
-
-        // ... (reste du calcul inchangé au dessus)
-
-    // Mise à jour de l'affichage
-    document.getElementById('totalSuppNet').innerText = formatEuro(gainTotalNet);
-    document.getElementById('salaryPlusSupp').innerText = formatEuro(base + gainTotalNet);
-    
-    // Mise à jour du volume total (Somme des 25% et 50%)
-    document.getElementById('totalHoursVol').innerText = (totalH25 + totalH50) + "h";
-    
-    // Mise à jour du détail
-    document.getElementById('detail25').innerText = totalH25 + "h à 25%";
-    document.getElementById('detail50').innerText = totalH50 + "h à 50%";
-}
+    function calculerIndemnite() {
+        const s = parseFloat(document.getElementById('indem-salaire').value) || 0;
+        const a = parseFloat(document.getElementById('indem-anciennete').value) || 0;
+        let total = (a <= 10) ? (s/4)*a : ((s/4)*10) + ((s/3)*(a-10));
+        document.getElementById('indem-montant').innerText = formatEuro(total);
+    }
 
     function comparer() {
+        const bA = parseFloat(document.getElementById('compBrutA').value) || 0;
+        const bB = parseFloat(document.getElementById('compBrutB').value) || 0;
         const stat = parseFloat(document.getElementById('statut').value);
-        const tI = (parseFloat(document.getElementById('impot').value) || 0) / 100;
-
-        const getInfo = (brutAnnuel, primes) => {
-            const totalBrut = brutAnnuel + primes;
-            const netAnnuel = totalBrut * (1 - stat) * (1 - tI);
-            return {
-                annuel: netAnnuel,
-                mensuel: netAnnuel / 12,
-                patron: (totalBrut * 1.45) / 12
-            };
-        };
-
-        const resA = getInfo(parseFloat(document.getElementById('compBrutA').value)||0, parseFloat(document.getElementById('compPrimesA').value)||0);
-        const resB = getInfo(parseFloat(document.getElementById('compBrutB').value)||0, parseFloat(document.getElementById('compPrimesB').value)||0);
-
-        document.getElementById('compNetA').innerText = formatEuro(resA.annuel) + " / an";
-        document.getElementById('detMensA').innerText = formatEuro(resA.mensuel);
-        document.getElementById('detPatronA').innerText = formatEuro(resA.patron);
-
-        document.getElementById('compNetB').innerText = formatEuro(resB.annuel) + " / an";
-        document.getElementById('detMensB').innerText = formatEuro(resB.mensuel);
-        document.getElementById('detPatronB').innerText = formatEuro(resB.patron);
-
-        const diff = resB.annuel - resA.annuel;
-        const card = document.getElementById('comparatifResultCard');
-        
-        document.getElementById('diffAnnuelle').innerText = (diff >= 0 ? "+ " : "- ") + formatEuro(Math.abs(diff)) + " / an";
-        document.getElementById('diffMensuelle').innerText = (diff >= 0 ? "+ " : "- ") + formatEuro(Math.abs(diff/12)) + " / mois";
-        card.style.background = diff >= 0 ? "var(--apple-green)" : "var(--apple-red)";
-
-        document.getElementById('cardA').className = resA.annuel > resB.annuel ? "res-item winner-border" : "res-item";
-        document.getElementById('cardB').className = resB.annuel > resA.annuel ? "res-item winner-border" : "res-item";
-        document.getElementById('tagA').innerHTML = resA.annuel > resB.annuel ? '<div class="winner-tag">Meilleur choix</div>' : '';
-        document.getElementById('tagB').innerHTML = resB.annuel > resA.annuel ? '<div class="winner-tag">Meilleur choix</div>' : '';
+        const nA = bA * (1 - stat);
+        const nB = bB * (1 - stat);
+        document.getElementById('compNetA').innerText = formatEuro(nA) + " / an";
+        document.getElementById('compNetB').innerText = formatEuro(nB) + " / an";
+        document.getElementById('compDiff').innerText = formatEuro((nB - nA)/12) + " / mois";
     }
 
-    function formatEuro(v, d=0) { return v.toLocaleString('fr-FR', { minimumFractionDigits: d, maximumFractionDigits: d }) + " €"; }
-    function toggleTheme() { document.body.setAttribute('data-theme', document.body.getAttribute('data-theme') === 'light' ? 'dark' : 'light'); }
-    function generatePDF() { html2pdf().from(document.getElementById('capture-area')).set({ margin: 10, filename: 'Simularis.pdf' }).save(); }
-
-    calculerBase();
-
-    function openModal(id) { 
-        document.getElementById(id).style.display = 'flex'; 
-    }
-    function closeModal(e) { 
-        if(e.target.className === 'modal') e.target.style.display = 'none'; 
+    function calculerPrime() {
+        const sal = parseFloat(document.getElementById('prime-salaire').value) || 0;
+        const log = document.getElementById('prime-logement').value === 'oui';
+        let base = 622;
+        if(log) base -= 74;
+        let bonif = (sal > 680) ? Math.min((sal-680)*0.29, 180) : 0;
+        let prime = (base + (sal * 0.61) + bonif) - sal;
+        if(prime < 0 || sal > 2000) prime = 0;
+        document.getElementById('prime-montant').innerText = formatEuro(prime);
     }
 
-function calculerKM() {
-    const cv = parseFloat(document.getElementById('cv-auto').value);
-    const km = parseFloat(document.getElementById('km-annuel').value) || 0;
-    const resBox = document.getElementById('resultat-km');
+    function switchTab(tabId, btn) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('page-' + tabId).classList.add('active');
+        if(btn) btn.classList.add('active');
+    }
     
-    if (km > 0) {
-        // Calcul basé sur le barème simplifié
-        let total = km * cv;
-        document.getElementById('km-montant').innerText = formatEuro(total, 0);
-        resBox.style.display = 'block';
-    } else {
-        resBox.style.display = 'none';
+    function generatePDF() { 
+        const el = document.getElementById('capture-area');
+        html2pdf().from(el).save('Simularis_Resultats.pdf'); 
     }
-}
 
-function calculerIndemnite() {
-    const salaire = parseFloat(document.getElementById('indem-salaire').value) || 0;
-    const anciennete = parseFloat(document.getElementById('indem-anciennete').value) || 0;
-    const resBox = document.getElementById('resultat-indemnite');
-    
-    if (salaire > 0 && anciennete > 0) {
-        let total = 0;
-        if (anciennete <= 10) {
-            total = (salaire / 4) * anciennete;
-        } else {
-            total = (salaire / 4) * 10 + (salaire / 3) * (anciennete - 10);
+    // Gestion des Modales Juridiques
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    window.onclick = function(event) {
+        if (event.target.className === 'modal') {
+            event.target.style.display = "none";
         }
-        document.getElementById('indem-montant').innerText = formatEuro(total, 0);
-        resBox.style.display = 'block';
-    } else {
-        resBox.style.display = 'none';
     }
-}
 
-function calculerPrime() {
-    const salaire = parseFloat(document.getElementById('prime-salaire').value) || 0;
-    const aLogement = document.getElementById('prime-logement').value;
-    const resBox = document.getElementById('resultat-prime');
-    const montantAffichage = document.getElementById('prime-montant');
-
-    // Paramètres 2026 (estimés sur base 2024-2025)
-    const montantBase = 622; 
-    const forfaitLogement = aLogement === "oui" ? 74 : 0;
-    const bonusIndiv = salaire > 680 ? Math.min((salaire - 680) * 0.12, 180) : 0;
-
-    // Formule simplifiée
-    // Prime = (Montant de base + 61% des revenus + Bonus) - (Revenus + Forfait Logement)
-    let prime = (montantBase + (salaire * 0.61) + bonusIndiv) - (salaire + forfaitLogement);
-
-    if (prime > 0 && salaire > 1070 && salaire < 2000) {
-        montantAffichage.innerText = Math.round(prime) + " € / mois";
-        resBox.style.display = 'block';
-    } else if (prime > 0 && salaire <= 1070) {
-        montantAffichage.innerText = Math.round(prime) + " € / mois";
-        resBox.style.display = 'block';
-    } else {
-        resBox.style.display = 'none';
-    }
-}
-
+    window.onload = function() {
+        document.getElementById('inputMBrut').value = 2500; 
+        updateAll('mBrut');
+    };
 </script>
+
 </body>
 </html>
