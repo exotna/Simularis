@@ -56,7 +56,13 @@
             border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 10px 30px rgba(0,0,0,0.02);
         }
         .article-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-        .article-image { height: 160px; width: 100%; }
+      .article-image { 
+    height: 160px; 
+    width: 100%; 
+    display: block;    /* Force l'image à prendre toute la largeur */
+    object-fit: cover; /* Recadre l'image proprement sans l'écraser */
+    background-color: #f0f0f2; /* Un gris clair "Apple" si l'image ne charge pas */
+}
 
         .article-content { padding: 22px; display: flex; flex-direction: column; flex-grow: 1; }
         .category-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; color: var(--apple-blue); }
